@@ -6,7 +6,7 @@
 	<groupId>com.sitepark.ies</groupId>
 	<artifactId>ies-shared-kernel</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<name>IES Shared Security</name>
+	<name>IES Shared Kernel</name>
 	<description>Shared kernel containing generic domain models, technical base objects, and cross-cutting concerns such as security, labeling, and data identification (e.g., Anchor, Identifier).</description>
 
 	<url>https://github.com/sitepark/ies-shared-kernel</url>
