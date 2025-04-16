@@ -13,4 +13,4 @@ jobs:
       MVN_REPO_SNAPSHOT_SERVER_ID: 'github'
       MVN_REPO_SNAPSHOT_SERVER_USERNAME: 'sitepark-bot'
       MVN_REPO_SNAPSHOT_SERVER_PASSWORD: ${{ secrets.BOT_PAT }}
-      MVN_REPO_SNAPSHOT_SERVER_URL: https://maven.pkg.github.com/${{ GITHUB_REPOSITORY }}
+      MVN_REPO_SNAPSHOT_SERVER_URL: 'https://maven.pkg.github.com/'${{ GITHUB_REPOSITORY }}
