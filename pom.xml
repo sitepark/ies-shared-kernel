@@ -45,13 +45,6 @@
 		<url>https://github.com/sitepark/ies-shared-kernel</url>
 	</scm>
 
-	<distributionManagement>
-		<snapshotRepository>
-			<id>central-portal-snapshots</id>
-			<url>https://central.sonatype.com/repository/maven-snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
-
 	<properties>
 		<junit.version>5.12.2</junit.version>
 		<spotbugs.version>4.8.4</spotbugs.version>
