@@ -6,7 +6,7 @@
 	<groupId>com.sitepark.ies</groupId>
 	<artifactId>ies-shared-kernel</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<name>IES Shared Security</name>
+	<name>IES Shared Kernel</name>
 	<description>Shared kernel containing generic domain models, technical base objects, and cross-cutting concerns such as security, labeling, and data identification (e.g., Anchor, Identifier).</description>
 
 	<url>https://github.com/sitepark/ies-shared-kernel</url>
@@ -46,7 +46,7 @@
 	</scm>
 
 	<properties>
-		<junit.version>5.10.2</junit.version>
+		<junit.version>5.12.2</junit.version>
 		<spotbugs.version>4.8.4</spotbugs.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.release>21</maven.compiler.release>
@@ -124,7 +124,7 @@
 		<dependency>
 			<groupId>nl.jqno.equalsverifier</groupId>
 			<artifactId>equalsverifier</artifactId>
-			<version>3.19.2</version>
+			<version>4.0</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -140,7 +140,7 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.13.0</version>
+				<version>3.14.0</version>
 				<configuration>
 					<compilerArgs>
 						<arg>-proc:none</arg>
@@ -154,7 +154,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.5.2</version>
+				<version>3.5.3</version>
 				<configuration>
 					<consoleOutputReporter>
 						<disable>true</disable>

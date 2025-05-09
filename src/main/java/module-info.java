@@ -1,4 +1,4 @@
-module com.sitepark.ies.shared.security {
+module com.sitepark.ies.sharedkernel {
   exports com.sitepark.ies.sharedkernel.base;
   exports com.sitepark.ies.sharedkernel.anchor.domain;
   exports com.sitepark.ies.sharedkernel.anchor.exception;
