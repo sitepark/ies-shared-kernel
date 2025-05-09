@@ -6,6 +6,27 @@ import com.sitepark.ies.sharedkernel.anchor.domain.Anchor;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * The {@code Identifier} class represents a unique identifier that can either be an ID (a numeric
+ * string) or an {@link com.sitepark.ies.sharedkernel.anchor.domain.Anchor}.
+ *
+ * <p>This class provides methods to create an {@code Identifier} from either an ID or an {@code
+ * Anchor}, ensuring that the provided values conform to the expected format and constraints. The
+ * {@code Identifier} is immutable and guarantees that either an ID or an {@code Anchor} is always
+ * present, but not both simultaneously.
+ *
+ * <p>The {@link com.sitepark.ies.sharedkernel.anchor.domain.Anchor} represents a domain-specific
+ * reference, which can be used as an alternative to numeric IDs for identifying entities.
+ *
+ * <p>Example usage:
+ *
+ * <pre>
+ *     Identifier id = Identifier.ofId("12345");
+ *     Identifier anchorIdentifier = Identifier.ofAnchor(Anchor.ofString("example-anchor"));
+ * </pre>
+ *
+ * @see com.sitepark.ies.sharedkernel.anchor.domain.Anchor
+ */
 public final class Identifier {
 
   private static final int MAX_ID_LENGTH = 19;
