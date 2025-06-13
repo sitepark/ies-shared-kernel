@@ -1,8 +1,7 @@
-package com.sitepark.ies.sharedkernel.anchor.exception;
+package com.sitepark.ies.sharedkernel.anchor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.sitepark.ies.sharedkernel.anchor.domain.Anchor;
 import org.junit.jupiter.api.Test;
 
 class AnchorNotFoundExceptionTest {

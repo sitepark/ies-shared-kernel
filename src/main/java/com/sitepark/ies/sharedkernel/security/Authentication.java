@@ -1,4 +1,4 @@
-package com.sitepark.ies.sharedkernel.security.domain;
+package com.sitepark.ies.sharedkernel.security;
 
 import java.util.List;
 import java.util.Optional;

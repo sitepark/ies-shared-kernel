@@ -1,7 +1,6 @@
-package com.sitepark.ies.sharedkernel.anchor.domain;
+package com.sitepark.ies.sharedkernel.anchor;
 
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.sitepark.ies.sharedkernel.anchor.exception.InvalidAnchorException;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;

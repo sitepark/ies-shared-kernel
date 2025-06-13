@@ -1,4 +1,4 @@
-package com.sitepark.ies.sharedkernel.security.domain;
+package com.sitepark.ies.sharedkernel.security;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

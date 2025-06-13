@@ -1,4 +1,4 @@
-package com.sitepark.ies.sharedkernel.security.domain;
+package com.sitepark.ies.sharedkernel.security;
 
 public class FullAccess implements Permission {
   public static final String TYPE = "FULL_ACCESS";

@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--suppress ALL -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.sitepark.ies</groupId>
 	<artifactId>ies-shared-kernel</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<name>IES Shared Kernel</name>
-	<description>Shared kernel containing generic domain models, technical base objects, and cross-cutting concerns such as security, labeling, and data identification (e.g., Anchor, Identifier).</description>
 
+	<name>IES Shared Kernel</name>
+	<description>Shared kernel containing generic domain models, technical base objects, and
+    cross-cutting concerns such as security, labeling, and data identification (e.g., Anchor,
+    Identifier).</description>
 	<url>https://github.com/sitepark/ies-shared-kernel</url>
 
 	<organization>
@@ -22,7 +25,6 @@
 			<url>https://opensource.org/licenses/MIT</url>
 		</license>
 	</licenses>
-
 	<developers>
 		<developer>
 			<id>veltrup@sitepark</id>
@@ -48,11 +50,10 @@
 	<properties>
 		<junit.version>5.13.1</junit.version>
 		<spotbugs.version>4.9.3</spotbugs.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.release>21</maven.compiler.release>
 		<gpg.skip>true</gpg.skip>
+		<maven.compiler.release>21</maven.compiler.release>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -71,7 +72,6 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
 	<dependencies>
 
 		<dependency>
@@ -89,6 +89,13 @@
 			<groupId>com.github.spotbugs</groupId>
 			<artifactId>spotbugs-annotations</artifactId>
 			<version>${spotbugs.version}</version>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jetbrains</groupId>
+			<artifactId>annotations</artifactId>
+			<version>26.0.2</version>
 			<optional>true</optional>
 		</dependency>
 
@@ -136,6 +143,7 @@
 		</dependency>
 
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -160,8 +168,8 @@
 						<disable>true</disable>
 					</consoleOutputReporter>
 					<statelessTestsetInfoReporter implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5StatelessTestsetInfoTreeReporter">
-						<theme>UNICODE</theme>
 						<hideResultsOnSuccess>true</hideResultsOnSuccess>
+						<theme>UNICODE</theme>
 					</statelessTestsetInfoReporter>
 				</configuration>
 				<dependencies>
@@ -240,12 +248,12 @@
 						<configuration>
 							<rules>
 								<banDuplicatePomDependencyVersions></banDuplicatePomDependencyVersions>
-								<requireMavenVersion>
-									<version>3.8</version>
-								</requireMavenVersion>
 								<requireJavaVersion>
 									<version>21</version>
 								</requireJavaVersion>
+								<requireMavenVersion>
+									<version>3.8</version>
+								</requireMavenVersion>
 							</rules>
 						</configuration>
 					</execution>
@@ -256,6 +264,7 @@
 						</goals>
 						<phase>none</phase>
 						<configuration>
+							<fail>true</fail>
 							<rules>
 								<requireReleaseDeps>
 									<failWhenParentIsSnapshot>false</failWhenParentIsSnapshot>
@@ -263,7 +272,6 @@
 								</requireReleaseDeps>
 								<requireReleaseDepsInPlugins implementation="org.apache.maven.enforcer.rule.requireReleaseDepsInPlugins"></requireReleaseDepsInPlugins>
 							</rules>
-							<fail>true</fail>
 						</configuration>
 					</execution>
 				</executions>
@@ -290,8 +298,8 @@
 									<limits>
 										<limit>
 											<counter>LINE</counter>
-											<value>COVEREDRATIO</value>
 											<minimum>0.0</minimum>
+											<value>COVEREDRATIO</value>
 										</limit>
 									</limits>
 								</rule>
@@ -314,18 +322,17 @@
 				<configuration>
 					<!-- define a language-specific format -->
 					<java>
+						<googleJavaFormat>
+							<formatJavadoc>false</formatJavadoc>
+							<reflowLongStrings>true</reflowLongStrings>
+							<style>GOOGLE</style>
+							<version>1.19.2</version>
+						</googleJavaFormat>
+
+						<!-- apply a specific flavor of google-java-format and reflow long strings -->
 						<removeUnusedImports>
 							<engine>google-java-format</engine>
 						</removeUnusedImports>
-
-						<!-- apply a specific flavor of google-java-format and reflow long strings -->
-						<googleJavaFormat>
-							<version>1.19.2</version>
-							<style>GOOGLE</style>
-							<reflowLongStrings>true</reflowLongStrings>
-							<formatJavadoc>false</formatJavadoc>
-						</googleJavaFormat>
-						<formatAnnotations></formatAnnotations>
 					</java>
 					<pom>
 						<!-- These are the defaults, you can override if you want -->
@@ -340,8 +347,8 @@
 				</configuration>
 				<executions>
 					<execution>
-						<?m2e ignore?>
 						<id>spotless-check</id>
+						<?m2e ignore?>
 						<goals>
 							<goal>check</goal>
 						</goals>
@@ -350,16 +357,16 @@
 				</executions>
 			</plugin>
 			<plugin>
+				<!-- https://spotbugs.readthedocs.io/en/latest/maven.html -->
 				<groupId>com.github.spotbugs</groupId>
 				<artifactId>spotbugs-maven-plugin</artifactId>
 				<version>4.9.3.0</version>
 				<configuration>
 					<effort>Max</effort>
-					<threshold>Low</threshold>
-					<maxRank>20</maxRank>
 					<excludeFilterFile>spotbug-exclude-filter.xml</excludeFilterFile>
+					<maxRank>20</maxRank>
+					<threshold>Low</threshold>
 				</configuration>
-				<!-- https://spotbugs.readthedocs.io/en/latest/maven.html -->
 				<dependencies>
 					<!-- overwrite dependency on spotbugs if you want to specify the version of
                     spotbugs -->
@@ -383,14 +390,14 @@
 				<artifactId>maven-pmd-plugin</artifactId>
 				<version>3.26.0</version>
 				<configuration>
+					<failOnViolation>true</failOnViolation>
+					<failurePriority>1</failurePriority>
+					<includeTests>true</includeTests>
+					<linkXRef>false</linkXRef>
+					<printFailingErrors>true</printFailingErrors>
 					<rulesets>
 						<ruleset>pmd-ruleset.xml</ruleset>
 					</rulesets>
-					<includeTests>true</includeTests>
-					<failOnViolation>true</failOnViolation>
-					<failurePriority>1</failurePriority>
-					<printFailingErrors>true</printFailingErrors>
-					<linkXRef>false</linkXRef>
 				</configuration>
 				<executions>
 					<execution>
@@ -404,6 +411,7 @@
 			</plugin>
 		</plugins>
 	</build>
+
 	<profiles>
 		<profile>
 			<id>publish-release</id>
@@ -415,8 +423,8 @@
 						<version>0.7.0</version>
 						<extensions>true</extensions>
 						<configuration>
-							<publishingServerId>central</publishingServerId>
 							<autoPublish>true</autoPublish>
+							<publishingServerId>central</publishingServerId>
 							<waitUntil>published</waitUntil>
 						</configuration>
 					</plugin>

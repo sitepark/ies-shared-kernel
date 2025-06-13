@@ -1,4 +1,4 @@
-package com.sitepark.ies.sharedkernel.anchor.exception;
+package com.sitepark.ies.sharedkernel.anchor;
 
 import static org.junit.jupiter.api.Assertions.*;
 

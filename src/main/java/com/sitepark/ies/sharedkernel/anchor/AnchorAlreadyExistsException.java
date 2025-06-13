@@ -1,6 +1,5 @@
-package com.sitepark.ies.sharedkernel.anchor.exception;
+package com.sitepark.ies.sharedkernel.anchor;
 
-import com.sitepark.ies.sharedkernel.anchor.domain.Anchor;
 import java.io.Serial;
 
 /**
@@ -13,23 +12,23 @@ public class AnchorAlreadyExistsException extends RuntimeException {
 
   private final Anchor anchor;
 
-  private final String owner;
+  private final String id;
 
-  public AnchorAlreadyExistsException(Anchor anchor, String owner) {
+  public AnchorAlreadyExistsException(Anchor anchor, String id) {
     this.anchor = anchor;
-    this.owner = owner;
+    this.id = id;
   }
 
   public Anchor getAnchor() {
     return this.anchor;
   }
 
-  public String getOwner() {
-    return this.owner;
+  public String getId() {
+    return this.id;
   }
 
   @Override
   public String getMessage() {
-    return "Anchor " + this.anchor + " already exists for user " + this.owner;
+    return "Anchor " + this.anchor + " already exists for id " + this.id;
   }
 }

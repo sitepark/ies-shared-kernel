@@ -1,6 +1,5 @@
-package com.sitepark.ies.sharedkernel.anchor.exception;
+package com.sitepark.ies.sharedkernel.anchor;
 
-import com.sitepark.ies.sharedkernel.anchor.domain.Anchor;
 import java.io.Serial;
 
 /**

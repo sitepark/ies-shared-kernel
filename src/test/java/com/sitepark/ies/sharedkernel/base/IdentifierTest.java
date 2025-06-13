@@ -2,9 +2,8 @@ package com.sitepark.ies.sharedkernel.base;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.sitepark.ies.sharedkernel.anchor.domain.Anchor;
+import com.sitepark.ies.sharedkernel.anchor.Anchor;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.util.Optional;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.Test;
 
@@ -35,28 +34,28 @@ class IdentifierTest {
   @Test
   void testOfStringToId() {
     Identifier identifier = Identifier.ofString("123");
-    assertEquals(Optional.of("123"), identifier.getId(), "id expected");
+    assertEquals("123", identifier.getId(), "id expected");
   }
 
   @Test
   void testOfStringToAnchor() {
     Identifier identifier = Identifier.ofString("abc");
     Anchor anchor = Anchor.ofString("abc");
-    assertEquals(Optional.of(anchor), identifier.getAnchor(), "anchor expected");
+    assertEquals(anchor, identifier.getAnchor(), "anchor expected");
   }
 
   @Test
   void testOfStringWithLongString() {
     Identifier identifier = Identifier.ofString("abcdefghijklmnopqrstuvwxyz");
     Anchor anchor = Anchor.ofString("abcdefghijklmnopqrstuvwxyz");
-    assertEquals(Optional.of(anchor), identifier.getAnchor(), "anchor expected");
+    assertEquals(anchor, identifier.getAnchor(), "anchor expected");
   }
 
   @Test
   void testOfStringWithDot() {
     Identifier identifier = Identifier.ofString("123.b");
     Anchor anchor = Anchor.ofString("123.b");
-    assertEquals(Optional.of(anchor), identifier.getAnchor(), "anchor expected");
+    assertEquals(anchor, identifier.getAnchor(), "anchor expected");
   }
 
   @Test
@@ -72,7 +71,7 @@ class IdentifierTest {
   @Test
   void testOfId() {
     Identifier identifier = Identifier.ofId("123");
-    assertEquals(Optional.of("123"), identifier.getId(), "id expected");
+    assertEquals("123", identifier.getId(), "id expected");
   }
 
   @Test
@@ -89,13 +88,13 @@ class IdentifierTest {
   void testOfAnchor() {
     Anchor anchor = Anchor.ofString("abc");
     Identifier identifier = Identifier.ofAnchor(anchor);
-    assertEquals(Optional.of(Anchor.ofString("abc")), identifier.getAnchor(), "anchor expected");
+    assertEquals(Anchor.ofString("abc"), identifier.getAnchor(), "anchor expected");
   }
 
   @Test
   void testOfAnchorString() {
     Identifier identifier = Identifier.ofAnchor("abc");
-    assertEquals(Optional.of(Anchor.ofString("abc")), identifier.getAnchor(), "anchor expected");
+    assertEquals(Anchor.ofString("abc"), identifier.getAnchor(), "anchor expected");
   }
 
   @Test
@@ -106,5 +105,19 @@ class IdentifierTest {
   @Test
   void testOfAnchorWithNull() {
     assertThrows(NullPointerException.class, () -> Identifier.ofAnchor((Anchor) null));
+  }
+
+  @Test
+  void testResolveId() {
+    Identifier identifier = Identifier.ofAnchor("abc");
+    String id = identifier.resolveId((a) -> "123");
+    assertEquals("123", id, "unexpected id");
+  }
+
+  @Test
+  void testResolveIdWithIdIdentifier() {
+    Identifier identifier = Identifier.ofId("123");
+    String id = identifier.resolveId((a) -> "345");
+    assertEquals("123", id, "unexpected id");
   }
 }

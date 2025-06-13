@@ -2,21 +2,22 @@ package com.sitepark.ies.sharedkernel.base;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.sitepark.ies.sharedkernel.anchor.domain.Anchor;
+import com.sitepark.ies.sharedkernel.anchor.Anchor;
 import java.util.Objects;
-import java.util.Optional;
+import java.util.function.Function;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * The {@code Identifier} class represents a unique identifier that can either be an ID (a numeric
- * string) or an {@link com.sitepark.ies.sharedkernel.anchor.domain.Anchor}.
+ * string) or an {@link Anchor}.
  *
  * <p>This class provides methods to create an {@code Identifier} from either an ID or an {@code
  * Anchor}, ensuring that the provided values conform to the expected format and constraints. The
  * {@code Identifier} is immutable and guarantees that either an ID or an {@code Anchor} is always
  * present, but not both simultaneously.
  *
- * <p>The {@link com.sitepark.ies.sharedkernel.anchor.domain.Anchor} represents a domain-specific
- * reference, which can be used as an alternative to numeric IDs for identifying entities.
+ * <p>The {@link Anchor} represents a domain-specific reference, which can be used as an alternative
+ * to numeric IDs for identifying entities.
  *
  * <p>Example usage:
  *
@@ -25,7 +26,7 @@ import java.util.Optional;
  *     Identifier anchorIdentifier = Identifier.ofAnchor(Anchor.ofString("example-anchor"));
  * </pre>
  *
- * @see com.sitepark.ies.sharedkernel.anchor.domain.Anchor
+ * @see Anchor
  */
 public final class Identifier {
 
@@ -80,14 +81,6 @@ public final class Identifier {
     return new Identifier(Anchor.ofString(identifier));
   }
 
-  public Optional<String> getId() {
-    return Optional.ofNullable(this.id);
-  }
-
-  public Optional<Anchor> getAnchor() {
-    return Optional.ofNullable(this.anchor);
-  }
-
   public static boolean isId(String str) {
 
     if (ZERO_ID.equals(str)) {
@@ -106,6 +99,24 @@ public final class Identifier {
       }
     }
     return true;
+  }
+
+  public String resolveId(Function<Anchor, String> anchorResolver) {
+    if (this.id != null) {
+      return this.id;
+    }
+    assert this.anchor != null : "Neither id nor anchor is set";
+    return anchorResolver.apply(this.anchor);
+  }
+
+  @Nullable
+  public String getId() {
+    return this.id;
+  }
+
+  @Nullable
+  public Anchor getAnchor() {
+    return this.anchor;
   }
 
   @Override

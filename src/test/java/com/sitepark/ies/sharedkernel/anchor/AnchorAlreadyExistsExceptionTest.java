@@ -1,8 +1,7 @@
-package com.sitepark.ies.sharedkernel.anchor.exception;
+package com.sitepark.ies.sharedkernel.anchor;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.sitepark.ies.sharedkernel.anchor.domain.Anchor;
 import org.junit.jupiter.api.Test;
 
 class AnchorAlreadyExistsExceptionTest {
@@ -11,7 +10,7 @@ class AnchorAlreadyExistsExceptionTest {
     AnchorAlreadyExistsException exception =
         new AnchorAlreadyExistsException(Anchor.ofString("anchor"), "123");
     assertEquals(
-        "Anchor anchor already exists for user 123", exception.getMessage(), "unexpected message");
+        "Anchor anchor already exists for id 123", exception.getMessage(), "unexpected message");
   }
 
   @Test
@@ -25,6 +24,6 @@ class AnchorAlreadyExistsExceptionTest {
   void testOwner() {
     AnchorAlreadyExistsException exception =
         new AnchorAlreadyExistsException(Anchor.ofString("anchor"), "123");
-    assertEquals("123", exception.getOwner(), "unexpected owner");
+    assertEquals("123", exception.getId(), "unexpected owner");
   }
 }

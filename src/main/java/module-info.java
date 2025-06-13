@@ -1,16 +1,17 @@
 module com.sitepark.ies.sharedkernel {
   exports com.sitepark.ies.sharedkernel.base;
-  exports com.sitepark.ies.sharedkernel.anchor.domain;
-  exports com.sitepark.ies.sharedkernel.anchor.exception;
-  exports com.sitepark.ies.sharedkernel.security.domain;
-  exports com.sitepark.ies.sharedkernel.security.exceptions;
+  exports com.sitepark.ies.sharedkernel.anchor;
+  exports com.sitepark.ies.sharedkernel.security;
+  exports com.sitepark.ies.sharedkernel.audit;
 
   requires org.apache.logging.log4j;
-  requires com.github.spotbugs.annotations;
+  requires static com.github.spotbugs.annotations;
   requires transitive com.fasterxml.jackson.databind;
   requires com.fasterxml.jackson.annotation;
+  requires static org.jetbrains.annotations;
 
   opens com.sitepark.ies.sharedkernel.base;
-  opens com.sitepark.ies.sharedkernel.anchor.domain;
-  opens com.sitepark.ies.sharedkernel.security.domain;
+  opens com.sitepark.ies.sharedkernel.anchor;
+  opens com.sitepark.ies.sharedkernel.security;
+  opens com.sitepark.ies.sharedkernel.audit;
 }

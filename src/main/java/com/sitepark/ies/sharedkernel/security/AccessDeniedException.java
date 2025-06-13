@@ -1,4 +1,4 @@
-package com.sitepark.ies.sharedkernel.security.exceptions;
+package com.sitepark.ies.sharedkernel.security;
 
 import java.io.Serial;
 

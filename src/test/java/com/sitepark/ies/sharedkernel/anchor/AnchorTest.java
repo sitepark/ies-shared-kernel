@@ -1,10 +1,9 @@
-package com.sitepark.ies.sharedkernel.anchor.domain;
+package com.sitepark.ies.sharedkernel.anchor;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sitepark.ies.sharedkernel.anchor.exception.InvalidAnchorException;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.Test;
 
