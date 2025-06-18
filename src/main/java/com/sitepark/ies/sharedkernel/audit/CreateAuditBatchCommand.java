@@ -1,7 +1,6 @@
 package com.sitepark.ies.sharedkernel.audit;
 
 import java.time.OffsetDateTime;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents a group of related audit log entries that were created as part of a single user or
@@ -28,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
  * @param changedByAuthorityName Name of the authority or system acting on behalf of the user
  */
 public record CreateAuditBatchCommand(
-    @NotNull String description,
-    @NotNull OffsetDateTime createdAt,
-    @NotNull String changedByUserId,
-    @NotNull String changedByAuthorityName) {}
+    String description,
+    OffsetDateTime createdAt,
+    String changedByUserId,
+    String changedByAuthorityName) {}

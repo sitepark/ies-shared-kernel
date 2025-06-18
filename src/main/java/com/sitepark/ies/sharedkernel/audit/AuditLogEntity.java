@@ -1,8 +1,6 @@
 package com.sitepark.ies.sharedkernel.audit;
 
 import java.time.OffsetDateTime;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a single audit entry describing a domain-relevant change within the system.
@@ -31,13 +29,12 @@ import org.jetbrains.annotations.Nullable;
  * </ul>
  */
 public record AuditLogEntity(
-    @NotNull String description,
-    @NotNull String entityType,
-    @NotNull String entityId,
-    @NotNull String action,
-    @NotNull String oldData,
-    @NotNull String newData,
-    @NotNull OffsetDateTime changedAt,
-    @NotNull String changedByUserId,
-    @NotNull String changedByAuthorityName,
-    @Nullable String batchId) {}
+    String description,
+    String entityType,
+    String entityId,
+    String action,
+    String newData,
+    OffsetDateTime changedAt,
+    String changedByUserId,
+    String changedByAuthorityName,
+    String batchId) {}
