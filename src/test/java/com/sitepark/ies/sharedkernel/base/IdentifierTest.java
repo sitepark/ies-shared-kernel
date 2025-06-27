@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 class IdentifierTest {
 
   @Test
-  @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   void testEquals() {
     EqualsVerifier.forClass(Identifier.class).verify();
   }
