@@ -11,12 +11,6 @@ public interface Authentication {
   /** Specifies the purpose for which the authentication applies. */
   String getPurpose();
 
-  /** Show if the authentication was successful. */
-  boolean isAuthenticated();
-
-  /** Erase the credentials for security reasons */
-  void eraseCredentials();
-
   /** Returns all permissions that were obtained via this authentication. */
   List<Permission> getPermissions();
 
@@ -33,6 +27,10 @@ public interface Authentication {
     }
 
     return false;
+  }
+
+  default boolean hasFullAccess() {
+    return this.hasPermission(FullAccess.class);
   }
 
   /** Returns a specific permission if that is included. */
