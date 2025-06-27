@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 
 class AnchorTest {
   @Test
-  @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   void testEquals() {
     EqualsVerifier.forClass(Anchor.class).verify();
   }
@@ -35,7 +34,6 @@ class AnchorTest {
   }
 
   @Test
-  @SuppressWarnings("PMD.JUnitTestContainsTooManyAsserts")
   void testValidateOnlyDigits() {
     assertThrows(
         InvalidAnchorException.class,
@@ -44,7 +42,6 @@ class AnchorTest {
   }
 
   @Test
-  @SuppressWarnings("PMD.JUnitTestContainsTooManyAsserts")
   void testValidateInvalidChars() {
     assertThrows(
         InvalidAnchorException.class,

@@ -1,15 +1,14 @@
 package com.sitepark.ies.sharedkernel.security;
 
-@SuppressWarnings("PMD.DataClass")
-public class User {
-  private final String id;
-  private final String username;
-  private final String firstName;
-  private final String lastName;
-  private final String email;
-  private final AuthMethod[] authMethods;
-  private final AuthFactor[] authFactors;
-  private final String passwordHash;
+public record User(
+    String id,
+    String username,
+    String firstName,
+    String lastName,
+    String email,
+    AuthMethod[] authMethods,
+    AuthFactor[] authFactors,
+    String passwordHash) {
 
   public User(
       String id,
@@ -30,44 +29,27 @@ public class User {
     this.passwordHash = passwordHash;
   }
 
-  public String getId() {
-    return id;
-  }
-
-  public String getUsername() {
-    return username;
-  }
-
-  public String getFirstName() {
-    return firstName;
-  }
-
-  public String getLastName() {
-    return lastName;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public AuthMethod[] getAuthMethods() {
+  @Override
+  public AuthMethod[] authMethods() {
     return authMethods.clone();
   }
 
-  public AuthFactor[] getAuthFactors() {
+  @Override
+  public AuthFactor[] authFactors() {
     return authFactors.clone();
-  }
-
-  public String getPasswordHash() {
-    return passwordHash;
   }
 
   public String getName() {
     StringBuilder name = new StringBuilder();
-    if (firstName != null && !firstName.isEmpty()) {
-      name.append(firstName).append(' ');
+    if (firstName != null && !firstName.trim().isBlank()) {
+      name.append(firstName.trim());
     }
-    name.append(lastName);
+    if (!name.isEmpty() && lastName != null && !lastName.trim().isBlank()) {
+      name.append(' ');
+    }
+    if (lastName != null && !lastName.trim().isBlank()) {
+      name.append(lastName.trim());
+    }
     return name.toString();
   }
 }
