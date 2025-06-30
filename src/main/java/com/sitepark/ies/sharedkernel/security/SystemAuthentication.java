@@ -3,6 +3,7 @@ package com.sitepark.ies.sharedkernel.security;
 import java.util.Arrays;
 import java.util.List;
 
+@SuppressWarnings("PMD.AvoidFieldNameMatchingMethodName")
 public class SystemAuthentication implements Authentication {
 
   private final String purpose;
@@ -15,17 +16,17 @@ public class SystemAuthentication implements Authentication {
   }
 
   @Override
-  public String getName() {
+  public String name() {
     return "System";
   }
 
   @Override
-  public String getPurpose() {
+  public String purpose() {
     return this.purpose;
   }
 
   @Override
-  public List<Permission> getPermissions() {
+  public List<Permission> permissions() {
     return this.permissions;
   }
 }

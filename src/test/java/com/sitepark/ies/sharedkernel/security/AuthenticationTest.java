@@ -11,7 +11,7 @@ class AuthenticationTest {
   @Test
   void testHasPermissionWithFullAccess() {
     Authentication authentication = spy();
-    when(authentication.getPermissions()).thenReturn(List.of(new FullAccess()));
+    when(authentication.permissions()).thenReturn(List.of(new FullAccess()));
 
     assertTrue(authentication.hasPermission(Permission.class), "Should have permission");
   }
@@ -19,7 +19,7 @@ class AuthenticationTest {
   @Test
   void testHasPermissionFound() {
     Authentication authentication = spy();
-    when(authentication.getPermissions()).thenReturn(List.of(new PermissionA())).getMock();
+    when(authentication.permissions()).thenReturn(List.of(new PermissionA())).getMock();
 
     assertTrue(authentication.hasPermission(PermissionA.class), "Should have permission");
   }
@@ -31,7 +31,7 @@ class AuthenticationTest {
     Permission permissionA = new PermissionA();
     Permission permissionB = new PermissionB();
 
-    when(authentication.getPermissions()).thenReturn(List.of(permissionA));
+    when(authentication.permissions()).thenReturn(List.of(permissionA));
 
     assertFalse(authentication.hasPermission(permissionB.getClass()), "Should not have permission");
   }
@@ -43,7 +43,7 @@ class AuthenticationTest {
     Permission permissionA = new PermissionA();
     Permission permissionB = new PermissionB();
 
-    when(authentication.getPermissions()).thenReturn(List.of(permissionA, permissionB));
+    when(authentication.permissions()).thenReturn(List.of(permissionA, permissionB));
 
     assertEquals(
         Optional.of(permissionA),
@@ -58,7 +58,7 @@ class AuthenticationTest {
     Permission permissionA = new PermissionA();
     Permission permissionB = new PermissionB();
 
-    when(authentication.getPermissions()).thenReturn(List.of(permissionB));
+    when(authentication.permissions()).thenReturn(List.of(permissionB));
 
     assertEquals(
         Optional.empty(), authentication.getPermission(permissionA.getClass()), "Should be empty");
@@ -71,11 +71,11 @@ class AuthenticationTest {
     Permission permissionA = new PermissionA();
     Permission permissionB = new PermissionB();
 
-    when(authentication.getPermissions()).thenReturn(List.of(permissionA, permissionB));
+    when(authentication.permissions()).thenReturn(List.of(permissionA, permissionB));
 
     assertEquals(
         List.of(permissionA),
-        authentication.getPermissions(permissionA.getClass()),
+        authentication.permissions(permissionA.getClass()),
         "Wrong permission");
   }
 

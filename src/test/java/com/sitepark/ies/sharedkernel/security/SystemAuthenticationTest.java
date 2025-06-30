@@ -10,7 +10,7 @@ class SystemAuthenticationTest {
   @Test
   void testGetName() {
     SystemAuthentication systemAuthentication = new SystemAuthentication("testPurpose");
-    assertEquals("System", systemAuthentication.getName(), "getName should return 'System'");
+    assertEquals("System", systemAuthentication.name(), "getName should return 'System'");
   }
 
   @Test
@@ -19,7 +19,7 @@ class SystemAuthenticationTest {
     SystemAuthentication systemAuthentication = new SystemAuthentication(purpose);
     assertEquals(
         purpose,
-        systemAuthentication.getPurpose(),
+        systemAuthentication.purpose(),
         "getPurpose should return the purpose set in the constructor");
   }
 
@@ -32,7 +32,7 @@ class SystemAuthenticationTest {
 
     assertEquals(
         List.of(permission1, permission2),
-        systemAuthentication.getPermissions(),
+        systemAuthentication.permissions(),
         "getPermissions should return the permissions passed to the constructor");
   }
 }

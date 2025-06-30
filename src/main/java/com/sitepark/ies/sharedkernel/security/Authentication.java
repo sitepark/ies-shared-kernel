@@ -6,18 +6,18 @@ import java.util.Optional;
 public interface Authentication {
 
   /** Name of the subject for which this authentication applies. */
-  String getName();
+  String name();
 
   /** Specifies the purpose for which the authentication applies. */
-  String getPurpose();
+  String purpose();
 
   /** Returns all permissions that were obtained via this authentication. */
-  List<Permission> getPermissions();
+  List<Permission> permissions();
 
   /** Checks whether the specified authorization is included via this authentication. */
   default boolean hasPermission(Class<? extends Permission> type) {
 
-    for (Permission permission : this.getPermissions()) {
+    for (Permission permission : this.permissions()) {
       if (FullAccess.class.equals(permission.getClass())) {
         return true;
       }
@@ -37,7 +37,7 @@ public interface Authentication {
   @SuppressWarnings("unchecked")
   default <T extends Permission> Optional<T> getPermission(Class<T> type) {
 
-    for (Permission permission : this.getPermissions()) {
+    for (Permission permission : this.permissions()) {
       if (type.isInstance(permission)) {
         return Optional.of((T) permission);
       }
@@ -46,7 +46,7 @@ public interface Authentication {
     return Optional.empty();
   }
 
-  default <T extends Permission> List<T> getPermissions(Class<T> type) {
-    return this.getPermissions().stream().filter(type::isInstance).map(type::cast).toList();
+  default <T extends Permission> List<T> permissions(Class<T> type) {
+    return this.permissions().stream().filter(type::isInstance).map(type::cast).toList();
   }
 }

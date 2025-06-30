@@ -406,7 +406,7 @@
 				<version>3.27.0</version>
 				<configuration>
 					<failOnViolation>true</failOnViolation>
-					<failurePriority>1</failurePriority>
+					<failurePriority>5</failurePriority>
 					<includeTests>true</includeTests>
 					<linkXRef>false</linkXRef>
 					<printFailingErrors>true</printFailingErrors>

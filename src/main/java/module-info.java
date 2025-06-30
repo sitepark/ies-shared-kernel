@@ -6,9 +6,9 @@ module com.sitepark.ies.sharedkernel {
   exports com.sitepark.ies.sharedkernel.audit;
 
   requires org.apache.logging.log4j;
-  requires static com.github.spotbugs.annotations;
   requires transitive com.fasterxml.jackson.databind;
   requires com.fasterxml.jackson.annotation;
+  requires static com.github.spotbugs.annotations;
   requires static org.jetbrains.annotations;
 
   opens com.sitepark.ies.sharedkernel.base;

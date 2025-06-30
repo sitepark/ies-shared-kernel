@@ -1,55 +1,232 @@
 package com.sitepark.ies.sharedkernel.security;
 
-public record User(
-    String id,
-    String username,
-    String firstName,
-    String lastName,
-    String email,
-    AuthMethod[] authMethods,
-    AuthFactor[] authFactors,
-    String passwordHash) {
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-  public User(
-      String id,
-      String username,
-      String firstName,
-      String lastName,
-      String email,
-      AuthMethod[] authMethods,
-      AuthFactor[] authFactors,
-      String passwordHash) {
-    this.id = id;
-    this.username = username;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
-    this.authMethods = authMethods != null ? authMethods : new AuthMethod[] {};
-    this.authFactors = authFactors != null ? authFactors : new AuthFactor[] {};
-    this.passwordHash = passwordHash;
+@SuppressWarnings({"PMD.AvoidFieldNameMatchingMethodName", "PMD.TooManyMethods"})
+public final class User {
+
+  private final String id;
+  private final String username;
+  private final String firstName;
+  private final String lastName;
+  private final String email;
+  private final List<AuthMethod> authMethods;
+  private final List<AuthFactor> authFactors;
+  private final String passwordHash;
+
+  private User(Builder builder) {
+    this.id = builder.id;
+    this.username = builder.username;
+    this.firstName = builder.firstName;
+    this.lastName = builder.lastName;
+    this.email = builder.email;
+    this.authMethods = List.copyOf(builder.authMethods);
+    this.authFactors = List.copyOf(builder.authFactors);
+    this.passwordHash = builder.passwordHash;
   }
 
-  @Override
-  public AuthMethod[] authMethods() {
-    return authMethods.clone();
+  public String id() {
+    return id;
   }
 
-  @Override
-  public AuthFactor[] authFactors() {
-    return authFactors.clone();
+  public String username() {
+    return username;
+  }
+
+  public String firstName() {
+    return firstName;
+  }
+
+  public String lastName() {
+    return lastName;
+  }
+
+  public String email() {
+    return email;
+  }
+
+  public List<AuthMethod> authMethods() {
+    return authMethods;
+  }
+
+  public List<AuthFactor> authFactors() {
+    return authFactors;
+  }
+
+  public String passwordHash() {
+    return passwordHash;
   }
 
   public String getName() {
     StringBuilder name = new StringBuilder();
-    if (firstName != null && !firstName.trim().isBlank()) {
-      name.append(firstName.trim());
+    if (firstName != null && !firstName.isBlank()) {
+      name.append(firstName);
     }
-    if (!name.isEmpty() && lastName != null && !lastName.trim().isBlank()) {
+    if (!name.isEmpty()) {
       name.append(' ');
     }
-    if (lastName != null && !lastName.trim().isBlank()) {
-      name.append(lastName.trim());
-    }
+    name.append(lastName);
     return name.toString();
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        id, username, firstName, lastName, email, authMethods, authFactors, passwordHash);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (!(obj instanceof User that)) {
+      return false;
+    }
+    return Objects.equals(this.id, that.id)
+        && Objects.equals(this.username, that.username)
+        && Objects.equals(this.firstName, that.firstName)
+        && Objects.equals(this.lastName, that.lastName)
+        && Objects.equals(this.email, that.email)
+        && Objects.equals(this.authMethods, that.authMethods)
+        && Objects.equals(this.authFactors, that.authFactors)
+        && Objects.equals(this.passwordHash, that.passwordHash);
+  }
+
+  @Override
+  public String toString() {
+    return "User{"
+        + "id='"
+        + id
+        + '\''
+        + ", username='"
+        + username
+        + '\''
+        + ", firstName='"
+        + firstName
+        + '\''
+        + ", lastName='"
+        + lastName
+        + '\''
+        + ", email='"
+        + email
+        + '\''
+        + ", authMethods="
+        + authMethods
+        + ", authFactors="
+        + authFactors
+        + ", passwordHash='"
+        + passwordHash
+        + '\''
+        + '}';
+  }
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
+  public Builder toBuilder() {
+    return new Builder(this);
+  }
+
+  @JsonPOJOBuilder(withPrefix = "")
+  public static final class Builder {
+
+    private String id;
+    private String username;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private final List<AuthMethod> authMethods = new ArrayList<>();
+    private final List<AuthFactor> authFactors = new ArrayList<>();
+    private String passwordHash;
+
+    private Builder() {}
+
+    private Builder(User user) {
+      this.id = user.id;
+      this.username = user.username;
+      this.firstName = user.firstName;
+      this.lastName = user.lastName;
+      this.email = user.email;
+      this.authMethods.addAll(user.authMethods);
+      this.authFactors.addAll(user.authFactors);
+      this.passwordHash = user.passwordHash;
+    }
+
+    public Builder id(String id) {
+      Objects.requireNonNull(id, "id cannot be null");
+      this.id = id;
+      return this;
+    }
+
+    public Builder username(String username) {
+      Objects.requireNonNull(username, "username cannot be null");
+      this.username = username;
+      return this;
+    }
+
+    public Builder firstName(String firstName) {
+      Objects.requireNonNull(firstName, "firstName cannot be null");
+      this.firstName = firstName;
+      return this;
+    }
+
+    public Builder lastName(String lastName) {
+      Objects.requireNonNull(lastName, "lastName cannot be null");
+      this.lastName = lastName;
+      return this;
+    }
+
+    public Builder email(String email) {
+      Objects.requireNonNull(email, "email cannot be null");
+      this.email = email;
+      return this;
+    }
+
+    public Builder authMethods(AuthMethod... authMethods) {
+      Objects.requireNonNull(authMethods, "authMethods cannot be null");
+      for (AuthMethod authMethod : authMethods) {
+        this.authMethod(authMethod);
+      }
+      return this;
+    }
+
+    public Builder authMethod(AuthMethod authMethod) {
+      Objects.requireNonNull(authMethod, "authMethod cannot be null");
+      this.authMethods.add(authMethod);
+      return this;
+    }
+
+    public Builder authFactors(AuthFactor... authFactors) {
+      Objects.requireNonNull(authFactors, "authFactors cannot be null");
+      for (AuthFactor authFactor : authFactors) {
+        this.authFactor(authFactor);
+      }
+      return this;
+    }
+
+    public Builder authFactor(AuthFactor authFactor) {
+      Objects.requireNonNull(authFactor, "authFactor cannot be null");
+      this.authFactors.add(authFactor);
+      return this;
+    }
+
+    public Builder passwordHash(String passwordHash) {
+      Objects.requireNonNull(passwordHash, "passwordHash cannot be null");
+      this.passwordHash = passwordHash;
+      return this;
+    }
+
+    public User build() {
+      Objects.requireNonNull(id, "id cannot be null");
+      Objects.requireNonNull(username, "username cannot be null");
+      Objects.requireNonNull(lastName, "lastName cannot be null");
+      if (lastName.isBlank()) {
+        throw new IllegalArgumentException("lastName cannot be blank");
+      }
+      Objects.requireNonNull(passwordHash, "passwordHash cannot be null");
+      return new User(this);
+    }
   }
 }

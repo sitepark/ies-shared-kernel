@@ -2,6 +2,8 @@ package com.sitepark.ies.sharedkernel.security;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.jparams.verifier.tostring.ToStringVerifier;
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,26 +14,26 @@ class UserTest {
   @BeforeEach
   void setUp() {
     this.user =
-        new User(
-            "1",
-            "testUser",
-            "Test",
-            "User",
-            "test@test.com",
-            new AuthMethod[] {AuthMethod.PASSWORD},
-            new AuthFactor[] {AuthFactor.TOTP},
-            "passwordHash");
+        User.builder()
+            .id("1")
+            .username("testUser")
+            .firstName("Test")
+            .lastName("User")
+            .email("test@test.com")
+            .authMethods(AuthMethod.PASSWORD)
+            .authFactors(AuthFactor.TOTP)
+            .passwordHash("passwordHash")
+            .build();
   }
 
   @Test
-  @SuppressWarnings("PMD.NullAssignment")
-  void testGetAuthMethods() {
-    this.user.authMethods()[0] = null;
+  void testEquals() {
+    EqualsVerifier.forClass(User.class).verify();
+  }
 
-    assertArrayEquals(
-        new AuthMethod[] {AuthMethod.PASSWORD},
-        this.user.authMethods(),
-        "authMethods should return a copy of the original array");
+  @Test
+  void testToString() {
+    ToStringVerifier.forClass(User.class).verify();
   }
 
   @Test
@@ -45,104 +47,121 @@ class UserTest {
   @Test
   void testGetNameWithBlankFirstName() {
     User user =
-        new User(
-            "1",
-            "testuser",
-            " ",
-            "User",
-            "test@test.com",
-            new AuthMethod[] {AuthMethod.PASSWORD},
-            new AuthFactor[] {AuthFactor.TOTP},
-            "passwordHash");
+        User.builder()
+            .id("1")
+            .username("testUser")
+            .firstName(" ")
+            .lastName("User")
+            .email("test@test.com")
+            .authMethods(AuthMethod.PASSWORD)
+            .authFactors(AuthFactor.TOTP)
+            .passwordHash("passwordHash")
+            .build();
+
     assertEquals("User", user.getName(), "getName should return 'User' when first name is blank");
   }
 
   @Test
   void testGetNameWithNullFirstName() {
     User user =
-        new User(
-            "1",
-            "testuser",
-            null,
-            "User",
-            "test@test.com",
-            new AuthMethod[] {AuthMethod.PASSWORD},
-            new AuthFactor[] {AuthFactor.TOTP},
-            "passwordHash");
+        User.builder()
+            .id("1")
+            .username("testUser")
+            .lastName("User")
+            .email("test@test.com")
+            .authMethods(AuthMethod.PASSWORD)
+            .authFactors(AuthFactor.TOTP)
+            .passwordHash("passwordHash")
+            .build();
     assertEquals("User", user.getName(), "getName should return 'User' when first name is blank");
   }
 
   @Test
-  void testGetNameWithBlankLastName() {
-    User user =
-        new User(
-            "1",
-            "testuser",
-            "Test",
-            " ",
-            "test@test.com",
-            new AuthMethod[] {AuthMethod.PASSWORD},
-            new AuthFactor[] {AuthFactor.TOTP},
-            "passwordHash");
-    assertEquals("Test", user.getName(), "getName should return 'User' when first name is blank");
+  void testWithNullLastName() {
+    assertThrows(
+        NullPointerException.class,
+        () ->
+            User.builder()
+                .id("1")
+                .username("testUser")
+                .firstName("Test")
+                .email("test@test.com")
+                .authMethods(AuthMethod.PASSWORD)
+                .authFactors(AuthFactor.TOTP)
+                .passwordHash("passwordHash")
+                .build());
   }
 
   @Test
-  void testGetNameWithNullLastName() {
-    User user =
-        new User(
-            "1",
-            "testuser",
-            "Test",
-            null,
-            "test@test.com",
-            new AuthMethod[] {AuthMethod.PASSWORD},
-            new AuthFactor[] {AuthFactor.TOTP},
-            "passwordHash");
-    assertEquals("Test", user.getName(), "getName should return 'User' when first name is blank");
+  void testWithBlankLastName() {
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            User.builder()
+                .id("1")
+                .username("testUser")
+                .firstName("Test")
+                .lastName(" ")
+                .email("test@test.com")
+                .authMethods(AuthMethod.PASSWORD)
+                .authFactors(AuthFactor.TOTP)
+                .passwordHash("passwordHash")
+                .build());
   }
 
   @Test
   void testNullAuthMethod() {
-    User user =
-        new User(
-            "1",
-            "testuser",
-            "Test",
-            " ",
-            "test@test.com",
-            null,
-            new AuthFactor[] {AuthFactor.TOTP},
-            "passwordHash");
-    assertArrayEquals(
-        new AuthMethod[] {}, user.authMethods(), "authMethods should be empty when null");
+    assertThrows(NullPointerException.class, () -> User.builder().authMethods((AuthMethod) null));
   }
 
   @Test
   void testNullAuthFactor() {
-    User user =
-        new User(
-            "1",
-            "testuser",
-            "Test",
-            " ",
-            "test@test.com",
-            new AuthMethod[] {AuthMethod.PASSWORD},
-            null,
-            "passwordHash");
-    assertArrayEquals(
-        new AuthFactor[] {}, user.authFactors(), "authFactors should be empty when null");
+    assertThrows(NullPointerException.class, () -> User.builder().authFactors((AuthFactor) null));
   }
 
   @Test
-  @SuppressWarnings("PMD.NullAssignment")
   void testGetAuthFactor() {
+    assertThrows(
+        UnsupportedOperationException.class,
+        () -> this.user.authFactors().add(null),
+        "authFactors should return a copy of the original");
+  }
 
-    this.user.authFactors()[0] = null;
+  @Test
+  void testGetAuthMethods() {
+    assertThrows(
+        UnsupportedOperationException.class,
+        () -> this.user.authMethods().add(null),
+        "authFactors should return a copy of the original");
+  }
 
-    assertArrayEquals(
-        new AuthFactor[] {AuthFactor.TOTP},
-        this.user.authFactors(),
-        "authFactors should return a copy of the original array");
+  @Test
+  void testToBuilder() {
+    User user =
+        User.builder()
+            .id("1")
+            .username("testUser")
+            .lastName("User")
+            .email("test@test.com")
+            .authMethods(AuthMethod.PASSWORD)
+            .authFactors(AuthFactor.TOTP)
+            .passwordHash("passwordHash")
+            .build()
+            .toBuilder()
+            .email("test2@test.com")
+            .build();
+
+    User expectedUser =
+        User.builder()
+            .id("1")
+            .username("testUser")
+            .lastName("User")
+            .email("test2@test.com")
+            .authMethods(AuthMethod.PASSWORD)
+            .authFactors(AuthFactor.TOTP)
+            .passwordHash("passwordHash")
+            .build();
+
+    assertEquals(expectedUser, user, "toBuilder should return the same object");
   }
 }
