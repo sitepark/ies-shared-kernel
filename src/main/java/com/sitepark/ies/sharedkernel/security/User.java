@@ -1,11 +1,13 @@
 package com.sitepark.ies.sharedkernel.security;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @SuppressWarnings({"PMD.AvoidFieldNameMatchingMethodName", "PMD.TooManyMethods"})
+@JsonDeserialize(builder = User.Builder.class)
 public final class User {
 
   private final String id;
