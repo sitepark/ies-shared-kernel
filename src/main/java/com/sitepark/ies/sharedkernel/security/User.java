@@ -15,7 +15,6 @@ public final class User {
   private final String email;
   private final List<AuthMethod> authMethods;
   private final List<AuthFactor> authFactors;
-  private final String passwordHash;
 
   private User(Builder builder) {
     this.id = builder.id;
@@ -25,7 +24,6 @@ public final class User {
     this.email = builder.email;
     this.authMethods = List.copyOf(builder.authMethods);
     this.authFactors = List.copyOf(builder.authFactors);
-    this.passwordHash = builder.passwordHash;
   }
 
   public String id() {
@@ -56,10 +54,6 @@ public final class User {
     return authFactors;
   }
 
-  public String passwordHash() {
-    return passwordHash;
-  }
-
   public String getName() {
     StringBuilder name = new StringBuilder();
     if (firstName != null && !firstName.isBlank()) {
@@ -74,8 +68,7 @@ public final class User {
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        id, username, firstName, lastName, email, authMethods, authFactors, passwordHash);
+    return Objects.hash(id, username, firstName, lastName, email, authMethods, authFactors);
   }
 
   @Override
@@ -89,8 +82,7 @@ public final class User {
         && Objects.equals(this.lastName, that.lastName)
         && Objects.equals(this.email, that.email)
         && Objects.equals(this.authMethods, that.authMethods)
-        && Objects.equals(this.authFactors, that.authFactors)
-        && Objects.equals(this.passwordHash, that.passwordHash);
+        && Objects.equals(this.authFactors, that.authFactors);
   }
 
   @Override
@@ -115,9 +107,6 @@ public final class User {
         + authMethods
         + ", authFactors="
         + authFactors
-        + ", passwordHash='"
-        + passwordHash
-        + '\''
         + '}';
   }
 
@@ -139,7 +128,6 @@ public final class User {
     private String email;
     private final List<AuthMethod> authMethods = new ArrayList<>();
     private final List<AuthFactor> authFactors = new ArrayList<>();
-    private String passwordHash;
 
     private Builder() {}
 
@@ -151,7 +139,6 @@ public final class User {
       this.email = user.email;
       this.authMethods.addAll(user.authMethods);
       this.authFactors.addAll(user.authFactors);
-      this.passwordHash = user.passwordHash;
     }
 
     public Builder id(String id) {
@@ -212,12 +199,6 @@ public final class User {
       return this;
     }
 
-    public Builder passwordHash(String passwordHash) {
-      Objects.requireNonNull(passwordHash, "passwordHash cannot be null");
-      this.passwordHash = passwordHash;
-      return this;
-    }
-
     public User build() {
       Objects.requireNonNull(id, "id cannot be null");
       Objects.requireNonNull(username, "username cannot be null");
@@ -225,7 +206,6 @@ public final class User {
       if (lastName.isBlank()) {
         throw new IllegalArgumentException("lastName cannot be blank");
       }
-      Objects.requireNonNull(passwordHash, "passwordHash cannot be null");
       return new User(this);
     }
   }

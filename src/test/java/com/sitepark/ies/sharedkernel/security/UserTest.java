@@ -22,7 +22,6 @@ class UserTest {
             .email("test@test.com")
             .authMethods(AuthMethod.PASSWORD)
             .authFactors(AuthFactor.TOTP)
-            .passwordHash("passwordHash")
             .build();
   }
 
@@ -55,7 +54,6 @@ class UserTest {
             .email("test@test.com")
             .authMethods(AuthMethod.PASSWORD)
             .authFactors(AuthFactor.TOTP)
-            .passwordHash("passwordHash")
             .build();
 
     assertEquals("User", user.getName(), "getName should return 'User' when first name is blank");
@@ -71,7 +69,6 @@ class UserTest {
             .email("test@test.com")
             .authMethods(AuthMethod.PASSWORD)
             .authFactors(AuthFactor.TOTP)
-            .passwordHash("passwordHash")
             .build();
     assertEquals("User", user.getName(), "getName should return 'User' when first name is blank");
   }
@@ -88,7 +85,6 @@ class UserTest {
                 .email("test@test.com")
                 .authMethods(AuthMethod.PASSWORD)
                 .authFactors(AuthFactor.TOTP)
-                .passwordHash("passwordHash")
                 .build());
   }
 
@@ -105,7 +101,6 @@ class UserTest {
                 .email("test@test.com")
                 .authMethods(AuthMethod.PASSWORD)
                 .authFactors(AuthFactor.TOTP)
-                .passwordHash("passwordHash")
                 .build());
   }
 
@@ -145,7 +140,6 @@ class UserTest {
             .email("test@test.com")
             .authMethods(AuthMethod.PASSWORD)
             .authFactors(AuthFactor.TOTP)
-            .passwordHash("passwordHash")
             .build()
             .toBuilder()
             .email("test2@test.com")
@@ -159,7 +153,6 @@ class UserTest {
             .email("test2@test.com")
             .authMethods(AuthMethod.PASSWORD)
             .authFactors(AuthFactor.TOTP)
-            .passwordHash("passwordHash")
             .build();
 
     assertEquals(expectedUser, user, "toBuilder should return the same object");

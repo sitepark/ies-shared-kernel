@@ -8,5 +8,7 @@ public interface UserServiceProvider {
 
   Optional<User> findById(String id);
 
+  Optional<String> getPasswordHash(String userId);
+
   void upgradePasswordHash(String userId, String newPassword);
 }
