@@ -1,5 +1,7 @@
 package com.sitepark.ies.sharedkernel.security;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.ArrayList;
@@ -28,34 +30,42 @@ public final class User {
     this.authFactors = List.copyOf(builder.authFactors);
   }
 
+  @JsonProperty
   public String id() {
     return id;
   }
 
+  @JsonProperty
   public String username() {
     return username;
   }
 
+  @JsonProperty
   public String firstName() {
     return firstName;
   }
 
+  @JsonProperty
   public String lastName() {
     return lastName;
   }
 
+  @JsonProperty
   public String email() {
     return email;
   }
 
+  @JsonProperty
   public List<AuthMethod> authMethods() {
     return authMethods;
   }
 
+  @JsonProperty
   public List<AuthFactor> authFactors() {
     return authFactors;
   }
 
+  @JsonIgnore
   public String getName() {
     StringBuilder name = new StringBuilder();
     if (firstName != null && !firstName.isBlank()) {

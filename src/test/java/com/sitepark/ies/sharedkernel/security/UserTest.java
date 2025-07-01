@@ -2,6 +2,8 @@ package com.sitepark.ies.sharedkernel.security;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jparams.verifier.tostring.ToStringVerifier;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.BeforeEach;
@@ -156,5 +158,28 @@ class UserTest {
             .build();
 
     assertEquals(expectedUser, user, "toBuilder should return the same object");
+  }
+
+  @Test
+  void testSerialize() throws JsonProcessingException {
+    ObjectMapper mapper = new ObjectMapper();
+    String json = mapper.writeValueAsString(this.user);
+
+    String expected =
+        """
+        {"id":"1","username":"testUser","firstName":"Test","lastName":"User","email":"test@test.com","authMethods":["PASSWORD"],"authFactors":["TOTP"]}""";
+
+    assertEquals(expected, json, "Serialized JSON should match expected format");
+  }
+
+  @Test
+  void testDeserialize() throws JsonProcessingException {
+    ObjectMapper mapper = new ObjectMapper();
+    String json =
+        """
+        {"id":"1","username":"testUser","firstName":"Test","lastName":"User","email":"test@test.com","authMethods":["PASSWORD"],"authFactors":["TOTP"]}""";
+    User user = mapper.readValue(json, User.class);
+
+    assertEquals(this.user, user, "Deserialized User should match original User");
   }
 }
