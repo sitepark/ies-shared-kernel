@@ -56,6 +56,22 @@ class AnchorTest {
   }
 
   @Test
+  void testOfParts() {
+    Anchor anchor = Anchor.ofParts("a", "b", "c");
+    assertEquals("a.b.c", anchor.toString(), "unexpected string representation");
+  }
+
+  @Test
+  void testOfPartsWithNullPart() {
+    assertThrows(IllegalArgumentException.class, () -> Anchor.ofParts("a", null, "c"));
+  }
+
+  @Test
+  void testOfPartsWithBlankPart() {
+    assertThrows(IllegalArgumentException.class, () -> Anchor.ofParts("a", " ", "c"));
+  }
+
+  @Test
   void testEmptyAnchorToString() {
     Anchor anchor = Anchor.EMPTY;
     assertEquals("EMPTY", anchor.toString(), "unexpected string representation");

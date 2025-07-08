@@ -57,12 +57,12 @@ public final class User {
 
   @JsonProperty
   public List<AuthMethod> authMethods() {
-    return authMethods;
+    return List.copyOf(authMethods);
   }
 
   @JsonProperty
   public List<AuthFactor> authFactors() {
-    return authFactors;
+    return List.copyOf(authFactors);
   }
 
   @JsonIgnore

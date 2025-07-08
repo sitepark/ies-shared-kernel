@@ -63,6 +63,22 @@ public final class Anchor implements Serializable {
     return new Anchor(name);
   }
 
+  public static Anchor ofParts(String... parts) {
+
+    StringBuilder name = new StringBuilder();
+    for (String part : parts) {
+      if (part == null || part.isBlank()) {
+        throw new IllegalArgumentException("Anchor part must not be null or blank");
+      }
+      if (!name.isEmpty()) {
+        name.append('.');
+      }
+      name.append(part);
+    }
+
+    return ofString(name.toString());
+  }
+
   public String getName() {
     return this.name;
   }
