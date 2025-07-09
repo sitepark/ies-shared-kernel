@@ -7,20 +7,22 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings({"PMD.AvoidFieldNameMatchingMethodName", "PMD.TooManyMethods"})
 @JsonDeserialize(builder = User.Builder.class)
 public final class User {
 
-  private final String id;
-  private final String username;
+  @NotNull private final String id;
+  @NotNull private final String username;
   private final String firstName;
-  private final String lastName;
+  @NotNull private final String lastName;
   private final String email;
   private final List<AuthMethod> authMethods;
   private final List<AuthFactor> authFactors;
 
   private User(Builder builder) {
+
     this.id = builder.id;
     this.username = builder.username;
     this.firstName = builder.firstName;
@@ -28,6 +30,13 @@ public final class User {
     this.email = builder.email;
     this.authMethods = List.copyOf(builder.authMethods);
     this.authFactors = List.copyOf(builder.authFactors);
+
+    Objects.requireNonNull(this.id, "id cannot be null");
+    Objects.requireNonNull(this.username, "username cannot be null");
+    Objects.requireNonNull(this.lastName, "lastName cannot be null");
+    if (this.lastName.isBlank()) {
+      throw new IllegalArgumentException("lastName cannot be blank");
+    }
   }
 
   @JsonProperty
@@ -144,6 +153,7 @@ public final class User {
     private Builder() {}
 
     private Builder(User user) {
+
       this.id = user.id;
       this.username = user.username;
       this.firstName = user.firstName;
@@ -212,12 +222,6 @@ public final class User {
     }
 
     public User build() {
-      Objects.requireNonNull(id, "id cannot be null");
-      Objects.requireNonNull(username, "username cannot be null");
-      Objects.requireNonNull(lastName, "lastName cannot be null");
-      if (lastName.isBlank()) {
-        throw new IllegalArgumentException("lastName cannot be blank");
-      }
       return new User(this);
     }
   }
