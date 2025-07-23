@@ -18,9 +18,11 @@ public final class User {
   private final String firstName;
   @NotNull private final String lastName;
   private final String email;
+  private final Identity identity;
   private final List<AuthMethod> authMethods;
   private final List<AuthFactor> authFactors;
 
+  @SuppressWarnings({"PMD.LawOfDemeter"})
   private User(Builder builder) {
 
     this.id = builder.id;
@@ -28,6 +30,7 @@ public final class User {
     this.firstName = builder.firstName;
     this.lastName = builder.lastName;
     this.email = builder.email;
+    this.identity = builder.identity;
     this.authMethods = List.copyOf(builder.authMethods);
     this.authFactors = List.copyOf(builder.authFactors);
 
@@ -37,6 +40,7 @@ public final class User {
     if (this.lastName.isBlank()) {
       throw new IllegalArgumentException("lastName cannot be blank");
     }
+    Objects.requireNonNull(this.identity, "identity cannot be null");
   }
 
   @JsonProperty
@@ -65,6 +69,11 @@ public final class User {
   }
 
   @JsonProperty
+  public Identity identity() {
+    return identity;
+  }
+
+  @JsonProperty
   public List<AuthMethod> authMethods() {
     return List.copyOf(authMethods);
   }
@@ -89,7 +98,8 @@ public final class User {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, username, firstName, lastName, email, authMethods, authFactors);
+    return Objects.hash(
+        id, username, firstName, lastName, email, identity, authMethods, authFactors);
   }
 
   @Override
@@ -102,6 +112,7 @@ public final class User {
         && Objects.equals(this.firstName, that.firstName)
         && Objects.equals(this.lastName, that.lastName)
         && Objects.equals(this.email, that.email)
+        && Objects.equals(this.identity, that.identity)
         && Objects.equals(this.authMethods, that.authMethods)
         && Objects.equals(this.authFactors, that.authFactors);
   }
@@ -124,6 +135,8 @@ public final class User {
         + ", email='"
         + email
         + '\''
+        + ", identity="
+        + identity
         + ", authMethods="
         + authMethods
         + ", authFactors="
@@ -140,6 +153,7 @@ public final class User {
   }
 
   @JsonPOJOBuilder(withPrefix = "")
+  @SuppressWarnings({"PMD.LawOfDemeter"})
   public static final class Builder {
 
     private String id;
@@ -147,6 +161,7 @@ public final class User {
     private String firstName;
     private String lastName;
     private String email;
+    private Identity identity = Identity.internal();
     private final List<AuthMethod> authMethods = new ArrayList<>();
     private final List<AuthFactor> authFactors = new ArrayList<>();
 
@@ -159,6 +174,7 @@ public final class User {
       this.firstName = user.firstName;
       this.lastName = user.lastName;
       this.email = user.email;
+      this.identity = user.identity;
       this.authMethods.addAll(user.authMethods);
       this.authFactors.addAll(user.authFactors);
     }
@@ -190,6 +206,12 @@ public final class User {
     public Builder email(String email) {
       Objects.requireNonNull(email, "email cannot be null");
       this.email = email;
+      return this;
+    }
+
+    public Builder identity(Identity identity) {
+      Objects.requireNonNull(identity, "identity cannot be null");
+      this.identity = identity;
       return this;
     }
 
