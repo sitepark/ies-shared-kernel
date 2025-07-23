@@ -54,6 +54,7 @@ class UserTest {
             .firstName(" ")
             .lastName("User")
             .email("test@test.com")
+            .identity(Identity.internal())
             .authMethods(AuthMethod.PASSWORD)
             .authFactors(AuthFactor.TOTP)
             .build();
@@ -69,6 +70,7 @@ class UserTest {
             .username("testUser")
             .lastName("User")
             .email("test@test.com")
+            .identity(Identity.internal())
             .authMethods(AuthMethod.PASSWORD)
             .authFactors(AuthFactor.TOTP)
             .build();
@@ -140,6 +142,7 @@ class UserTest {
             .username("testUser")
             .lastName("User")
             .email("test@test.com")
+            .identity(Identity.internal())
             .authMethods(AuthMethod.PASSWORD)
             .authFactors(AuthFactor.TOTP)
             .build()
@@ -153,6 +156,7 @@ class UserTest {
             .username("testUser")
             .lastName("User")
             .email("test2@test.com")
+            .identity(Identity.internal())
             .authMethods(AuthMethod.PASSWORD)
             .authFactors(AuthFactor.TOTP)
             .build();
@@ -167,7 +171,7 @@ class UserTest {
 
     String expected =
         """
-        {"id":"1","username":"testUser","firstName":"Test","lastName":"User","email":"test@test.com","authMethods":["PASSWORD"],"authFactors":["TOTP"]}""";
+        {"id":"1","username":"testUser","firstName":"Test","lastName":"User","email":"test@test.com","identity":{"@type":"internal"},"authMethods":["PASSWORD"],"authFactors":["TOTP"]}""";
 
     assertEquals(expected, json, "Serialized JSON should match expected format");
   }
@@ -177,7 +181,7 @@ class UserTest {
     ObjectMapper mapper = new ObjectMapper();
     String json =
         """
-        {"id":"1","username":"testUser","firstName":"Test","lastName":"User","email":"test@test.com","authMethods":["PASSWORD"],"authFactors":["TOTP"]}""";
+        {"id":"1","username":"testUser","firstName":"Test","lastName":"User","email":"test@test.com","identity":{"@type":"internal"},"authMethods":["PASSWORD"],"authFactors":["TOTP"]}""";
     User user = mapper.readValue(json, User.class);
 
     assertEquals(this.user, user, "Deserialized User should match original User");
