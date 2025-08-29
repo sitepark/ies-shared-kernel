@@ -21,6 +21,7 @@ public final class User {
   private final Identity identity;
   private final List<AuthMethod> authMethods;
   private final List<AuthFactor> authFactors;
+  private final List<String> roles;
 
   @SuppressWarnings({"PMD.LawOfDemeter"})
   private User(Builder builder) {
@@ -33,6 +34,7 @@ public final class User {
     this.identity = builder.identity;
     this.authMethods = List.copyOf(builder.authMethods);
     this.authFactors = List.copyOf(builder.authFactors);
+    this.roles = List.copyOf(builder.roles);
 
     Objects.requireNonNull(this.id, "id cannot be null");
     Objects.requireNonNull(this.username, "username cannot be null");
@@ -83,6 +85,11 @@ public final class User {
     return List.copyOf(authFactors);
   }
 
+  @JsonProperty
+  public List<String> roles() {
+    return List.copyOf(roles);
+  }
+
   @JsonIgnore
   public String getName() {
     StringBuilder name = new StringBuilder();
@@ -99,7 +106,7 @@ public final class User {
   @Override
   public int hashCode() {
     return Objects.hash(
-        id, username, firstName, lastName, email, identity, authMethods, authFactors);
+        id, username, firstName, lastName, email, identity, authMethods, authFactors, roles);
   }
 
   @Override
@@ -114,7 +121,8 @@ public final class User {
         && Objects.equals(this.email, that.email)
         && Objects.equals(this.identity, that.identity)
         && Objects.equals(this.authMethods, that.authMethods)
-        && Objects.equals(this.authFactors, that.authFactors);
+        && Objects.equals(this.authFactors, that.authFactors)
+        && Objects.equals(this.roles, that.roles);
   }
 
   @Override
@@ -141,6 +149,8 @@ public final class User {
         + authMethods
         + ", authFactors="
         + authFactors
+        + ", roles="
+        + roles
         + '}';
   }
 
@@ -164,6 +174,7 @@ public final class User {
     private Identity identity = Identity.internal();
     private final List<AuthMethod> authMethods = new ArrayList<>();
     private final List<AuthFactor> authFactors = new ArrayList<>();
+    private final List<String> roles = new ArrayList<>();
 
     private Builder() {}
 
@@ -177,6 +188,7 @@ public final class User {
       this.identity = user.identity;
       this.authMethods.addAll(user.authMethods);
       this.authFactors.addAll(user.authFactors);
+      this.roles.addAll(user.roles);
     }
 
     public Builder id(String id) {
@@ -240,6 +252,20 @@ public final class User {
     public Builder authFactor(AuthFactor authFactor) {
       Objects.requireNonNull(authFactor, "authFactor cannot be null");
       this.authFactors.add(authFactor);
+      return this;
+    }
+
+    public Builder roles(String... roles) {
+      Objects.requireNonNull(roles, "roles cannot be null");
+      for (String role : roles) {
+        this.role(role);
+      }
+      return this;
+    }
+
+    public Builder role(String role) {
+      Objects.requireNonNull(role, "role cannot be null");
+      this.roles.add(role);
       return this;
     }
 
