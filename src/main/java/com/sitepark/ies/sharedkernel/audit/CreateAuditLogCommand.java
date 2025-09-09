@@ -1,6 +1,6 @@
 package com.sitepark.ies.sharedkernel.audit;
 
-import java.time.OffsetDateTime;
+import java.time.Instant;
 
 /**
  * Represents a single audit entry describing a domain-relevant change within the system.
@@ -48,5 +48,5 @@ public record CreateAuditLogCommand(
     String action,
     String oldData,
     String newData,
-    OffsetDateTime changedAt,
+    Instant changedAt,
     String batchId) {}

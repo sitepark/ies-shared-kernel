@@ -19,7 +19,7 @@ public interface Identity {
     return InternalIdentity.getInstance();
   }
 
-  static Identity ldap(int serverId, String dn) {
+  static Identity ldap(String serverId, String dn) {
     return new LdapIdentity(serverId, dn);
   }
 }

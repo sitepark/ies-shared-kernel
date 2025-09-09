@@ -13,6 +13,6 @@ class IdentityTest {
   @Test
   void testLdap() {
     assertInstanceOf(
-        LdapIdentity.class, Identity.ldap(1, "cn=Test User,ou=users,dc=example,dc=com"));
+        LdapIdentity.class, Identity.ldap("1", "cn=Test User,ou=users,dc=example,dc=com"));
   }
 }

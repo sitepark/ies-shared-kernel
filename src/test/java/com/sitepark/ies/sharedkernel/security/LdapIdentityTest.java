@@ -33,16 +33,16 @@ class LdapIdentityTest {
 
   @Test
   void testSetServer() throws JsonProcessingException {
-    LdapIdentity ldapIdentity = new LdapIdentity(2, USER_DN);
-    assertEquals(2, ldapIdentity.serverId(), "unexpected server");
+    LdapIdentity ldapIdentity = new LdapIdentity("2", USER_DN);
+    assertEquals("2", ldapIdentity.serverId(), "unexpected server");
   }
 
   @Test
   void testSetInvalidServer() throws JsonProcessingException {
     assertThrows(
-        IllegalArgumentException.class,
+        NullPointerException.class,
         () -> {
-          new LdapIdentity(0, USER_DN);
+          new LdapIdentity(null, USER_DN);
         });
   }
 
@@ -51,7 +51,7 @@ class LdapIdentityTest {
     assertThrows(
         NullPointerException.class,
         () -> {
-          new LdapIdentity(1, null);
+          new LdapIdentity("1", null);
         });
   }
 
@@ -60,13 +60,13 @@ class LdapIdentityTest {
     assertThrows(
         IllegalArgumentException.class,
         () -> {
-          new LdapIdentity(1, " ");
+          new LdapIdentity("1", " ");
         });
   }
 
   @Test
   void testSetDn() throws JsonProcessingException {
-    LdapIdentity ldapIdentity = new LdapIdentity(2, USER_DN);
+    LdapIdentity ldapIdentity = new LdapIdentity("2", USER_DN);
     assertEquals(USER_DN, ldapIdentity.dn(), "unexpected server");
   }
 
@@ -76,11 +76,11 @@ class LdapIdentityTest {
     ObjectMapper mapper = new ObjectMapper();
     mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
 
-    LdapIdentity ldapIdentity = new LdapIdentity(2, USER_DN);
+    LdapIdentity ldapIdentity = new LdapIdentity("2", USER_DN);
 
     String json = mapper.writeValueAsString(ldapIdentity);
 
-    String expected = "{\"@type\":\"ldap\",\"serverId\":2,\"dn\":\"userdn\"}";
+    String expected = "{\"@type\":\"ldap\",\"serverId\":\"2\",\"dn\":\"userdn\"}";
 
     assertEquals(expected, json, "unexpected json");
   }
@@ -92,11 +92,11 @@ class LdapIdentityTest {
     SimpleModule module = new SimpleModule();
     mapper.registerModule(module);
 
-    String json = "{\"@type\":\"ldap\",\"serverId\":2,\"dn\":\"userdn\"}";
+    String json = "{\"@type\":\"ldap\",\"serverId\":\"2\",\"dn\":\"userdn\"}";
 
     LdapIdentity ldapIdentity = mapper.readValue(json, LdapIdentity.class);
 
-    LdapIdentity expected = new LdapIdentity(2, USER_DN);
+    LdapIdentity expected = new LdapIdentity("2", USER_DN);
 
     assertEquals(expected, ldapIdentity, "unexpected ldapIdentity");
   }

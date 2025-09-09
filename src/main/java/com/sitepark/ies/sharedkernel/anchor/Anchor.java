@@ -93,7 +93,7 @@ public final class Anchor implements Serializable {
     }
 
     if (!VALIDATOR_PATTERN.matcher(name).matches()) {
-      throw new InvalidAnchorException(name, "Anchor contains Spaces");
+      throw new InvalidAnchorException(name, "Anchor contains invalid characters");
     }
   }
 

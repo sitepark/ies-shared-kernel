@@ -11,15 +11,13 @@ import java.util.Objects;
 @SuppressWarnings({"PMD.AvoidFieldNameMatchingMethodName"})
 public final class LdapIdentity implements Identity {
 
-  private final int serverId;
+  private final String serverId;
 
   private final String dn;
 
   @JsonCreator
-  LdapIdentity(@JsonProperty("serverId") int serverId, @JsonProperty("dn") String dn) {
-    if (serverId <= 0) {
-      throw new IllegalArgumentException("serverId must be greater than 0");
-    }
+  LdapIdentity(@JsonProperty("serverId") String serverId, @JsonProperty("dn") String dn) {
+    Objects.requireNonNull(serverId, "serverId must not be null");
     Objects.requireNonNull(dn, "db must not be null");
     if (dn.isBlank()) {
       throw new IllegalArgumentException("dn must not be blank");
@@ -29,7 +27,7 @@ public final class LdapIdentity implements Identity {
   }
 
   @JsonProperty
-  public int serverId() {
+  public String serverId() {
     return this.serverId;
   }
 

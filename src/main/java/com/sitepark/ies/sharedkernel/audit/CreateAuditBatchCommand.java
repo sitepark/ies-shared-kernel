@@ -1,6 +1,6 @@
 package com.sitepark.ies.sharedkernel.audit;
 
-import java.time.OffsetDateTime;
+import java.time.Instant;
 
 /**
  * Represents a group of related audit log entries that were created as part of a single user or
@@ -27,7 +27,4 @@ import java.time.OffsetDateTime;
  * @param changedByAuthorityName Name of the authority or system acting on behalf of the user
  */
 public record CreateAuditBatchCommand(
-    String description,
-    OffsetDateTime createdAt,
-    String changedByUserId,
-    String changedByAuthorityName) {}
+    String description, Instant createdAt, String changedByUserId, String changedByAuthorityName) {}
