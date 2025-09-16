@@ -1,14 +1,15 @@
 package com.sitepark.ies.sharedkernel.audit;
 
-import java.util.UUID;
+import java.time.Instant;
 
 public interface AuditLogService {
 
-  default String generateAuditBatchId() {
-    return UUID.randomUUID().toString();
-  }
+  String createAuditLog(CreateAuditLogRequest command);
 
-  String createAuditLog(CreateAuditLogCommand command);
-
-  String createAuditBatch(CreateAuditBatchCommand command);
+  /**
+   * Creates an audit batch with the specified creation time.
+   *
+   * @return the ID of the created audit batch
+   */
+  String createAuditBatch(Instant createdAt);
 }

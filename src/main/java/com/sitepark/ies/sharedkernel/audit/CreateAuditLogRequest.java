@@ -28,8 +28,6 @@ import java.time.Instant;
  *   <li>Monitoring and reporting across bounded contexts
  * </ul>
  *
- * @param description A human-readable description of the change, for display or documentation
- *     purposes
  * @param entityType The type of the affected domain entity (e.g., USER, ROLE, PRIVILEGE)
  * @param entityId The identifier of the affected entity (may be numeric, UUID, or composite as
  *     string)
@@ -41,8 +39,7 @@ import java.time.Instant;
  * @param changedAt The timestamp when the change was recorded
  * @param batchId Optional ID referencing a batch or group of related changes
  */
-public record CreateAuditLogCommand(
-    String description,
+public record CreateAuditLogRequest(
     String entityType,
     String entityId,
     String action,

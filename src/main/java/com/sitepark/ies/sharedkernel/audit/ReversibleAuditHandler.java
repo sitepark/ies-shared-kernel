@@ -1,7 +1,7 @@
 package com.sitepark.ies.sharedkernel.audit;
 
 public interface ReversibleAuditHandler {
-  boolean supports(String entityType, String action);
+  String getEntityType();
 
-  void revert(AuditLogEntity autoLog);
+  void revert(RevertRequest revertRequest);
 }
