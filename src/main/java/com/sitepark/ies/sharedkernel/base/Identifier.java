@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.sitepark.ies.sharedkernel.anchor.Anchor;
 import java.util.Objects;
 import java.util.function.Function;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -28,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
  *
  * @see Anchor
  */
-public final class Identifier {
+public final class Identifier implements Comparable<Identifier> {
 
   private static final int MAX_ID_LENGTH = 19;
 
@@ -142,5 +143,10 @@ public final class Identifier {
     }
     assert this.anchor != null;
     return this.anchor.toString();
+  }
+
+  @Override
+  public int compareTo(@NotNull Identifier o) {
+    return this.toString().compareTo(o.toString());
   }
 }

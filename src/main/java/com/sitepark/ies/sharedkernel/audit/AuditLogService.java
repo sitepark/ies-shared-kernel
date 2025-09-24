@@ -1,15 +1,17 @@
 package com.sitepark.ies.sharedkernel.audit;
 
-import java.time.Instant;
+import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 
 public interface AuditLogService {
+  String createAuditLog(CreateAuditLogRequest request);
 
-  String createAuditLog(CreateAuditLogRequest command);
+  List<String> getRecursiveChildIds(String parentId);
 
-  /**
-   * Creates an audit batch with the specified creation time.
-   *
-   * @return the ID of the created audit batch
-   */
-  String createAuditBatch(Instant createdAt);
+  <T> Optional<T> getOldData(String auditLogId, Class<T> valueType) throws IOException;
+
+  <T> T deserialize(String oldData, Class<T> valueType) throws IOException;
+
+  String serialize(Object value) throws IOException;
 }

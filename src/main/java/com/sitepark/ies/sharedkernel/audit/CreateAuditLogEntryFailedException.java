@@ -14,10 +14,14 @@ public class CreateAuditLogEntryFailedException extends RuntimeException {
 
   private final String entityId;
 
-  public CreateAuditLogEntryFailedException(String entityType, String entityId, Throwable t) {
+  private final String entityName;
+
+  public CreateAuditLogEntryFailedException(
+      String entityType, String entityId, String entityName, Throwable t) {
     super(t);
     this.entityType = entityType;
     this.entityId = entityId;
+    this.entityName = entityName;
   }
 
   public String getEntityType() {
@@ -28,8 +32,18 @@ public class CreateAuditLogEntryFailedException extends RuntimeException {
     return this.entityId;
   }
 
+  public String getEntityName() {
+    return this.entityName;
+  }
+
   @Override
   public String getMessage() {
-    return "Create audit-log entry failed: " + this.entityType + "." + this.entityId;
+    return "Create audit-log entry failed: "
+        + this.entityType
+        + "."
+        + this.entityId
+        + " ("
+        + this.entityName
+        + ")";
   }
 }

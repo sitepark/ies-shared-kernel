@@ -37,13 +37,14 @@ import java.time.Instant;
  * @param newData A serialized representation of the resulting state (diff or full), must not be
  *     {@code null}
  * @param changedAt The timestamp when the change was recorded
- * @param batchId Optional ID referencing a batch or group of related changes
+ * @param parentId An optional identifier linking this entry to a parent log entry
  */
 public record CreateAuditLogRequest(
     String entityType,
     String entityId,
+    String entityName,
     String action,
     String oldData,
     String newData,
     Instant changedAt,
-    String batchId) {}
+    String parentId) {}
