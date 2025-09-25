@@ -1,5 +1,6 @@
 package com.sitepark.ies.sharedkernel.anchor;
 
+import com.sitepark.ies.sharedkernel.domain.DomainException;
 import java.io.Serial;
 
 /**
@@ -7,7 +8,7 @@ import java.io.Serial;
  * does not exist in the system, typically when trying to access or manipulate an anchor that is not
  * present.
  */
-public class AnchorNotFoundException extends RuntimeException {
+public class AnchorNotFoundException extends DomainException {
 
   @Serial private static final long serialVersionUID = 1L;
 

@@ -1,9 +1,10 @@
 package com.sitepark.ies.sharedkernel.audit;
 
+import com.sitepark.ies.sharedkernel.domain.DomainException;
 import java.io.Serial;
 
 /** The <code>RevertFailedException</code> exception is thrown when a revert operation fails. */
-public class RevertFailedException extends RuntimeException {
+public class RevertFailedException extends DomainException {
 
   @Serial private static final long serialVersionUID = 1L;
 

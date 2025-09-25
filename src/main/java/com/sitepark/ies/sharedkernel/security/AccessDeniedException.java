@@ -1,8 +1,9 @@
 package com.sitepark.ies.sharedkernel.security;
 
+import com.sitepark.ies.sharedkernel.domain.DomainException;
 import java.io.Serial;
 
-public class AccessDeniedException extends RuntimeException {
+public class AccessDeniedException extends DomainException {
 
   @Serial private static final long serialVersionUID = 1L;
 

@@ -1,12 +1,13 @@
 package com.sitepark.ies.sharedkernel.audit;
 
+import com.sitepark.ies.sharedkernel.domain.DomainException;
 import java.io.Serial;
 
 /**
  * The <code>CreateAuditLogEntryFailedException</code> exception is thrown when the creation of an
  * audit log entry fails.
  */
-public class CreateAuditLogEntryFailedException extends RuntimeException {
+public class CreateAuditLogEntryFailedException extends DomainException {
 
   @Serial private static final long serialVersionUID = 1L;
 

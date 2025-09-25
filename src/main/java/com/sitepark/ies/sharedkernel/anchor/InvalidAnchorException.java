@@ -1,12 +1,13 @@
 package com.sitepark.ies.sharedkernel.anchor;
 
+import com.sitepark.ies.sharedkernel.domain.DomainException;
 import java.io.Serial;
 
 /**
  * The <code>InvalidAnchorException</code> exception is thrown when an anchor provided as a
  * reference is invalid, not recognized, or does not conform to the expected format or criteria.
  */
-public class InvalidAnchorException extends RuntimeException {
+public class InvalidAnchorException extends DomainException {
 
   private final String name;
 

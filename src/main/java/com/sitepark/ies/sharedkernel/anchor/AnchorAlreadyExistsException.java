@@ -1,12 +1,13 @@
 package com.sitepark.ies.sharedkernel.anchor;
 
+import com.sitepark.ies.sharedkernel.domain.DomainException;
 import java.io.Serial;
 
 /**
  * The <code>AnchorAlreadyExistsException</code> exception is thrown when attempting to create a new
  * anchor that already exists, violating the uniqueness constraint for anchors.
  */
-public class AnchorAlreadyExistsException extends RuntimeException {
+public class AnchorAlreadyExistsException extends DomainException {
 
   @Serial private static final long serialVersionUID = 1L;
 
