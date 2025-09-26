@@ -32,9 +32,9 @@ import java.time.Instant;
  * @param entityId The identifier of the affected entity (may be numeric, UUID, or composite as
  *     string)
  * @param action The action performed on the entity (e.g., CREATE, REMOVE, REVOKE_PRIVILEGES)
- * @param oldData A serialized representation of the previous state (diff or full), must not be
+ * @param backwardData A serialized representation of the previous state (diff or full), must not be
  *     {@code null}
- * @param newData A serialized representation of the resulting state (diff or full), must not be
+ * @param forwardData A serialized representation of the resulting state (diff or full), must not be
  *     {@code null}
  * @param changedAt The timestamp when the change was recorded
  * @param parentId An optional identifier linking this entry to a parent log entry
@@ -44,7 +44,7 @@ public record CreateAuditLogRequest(
     String entityId,
     String entityName,
     String action,
-    String oldData,
-    String newData,
+    String backwardData,
+    String forwardData,
     Instant changedAt,
     String parentId) {}

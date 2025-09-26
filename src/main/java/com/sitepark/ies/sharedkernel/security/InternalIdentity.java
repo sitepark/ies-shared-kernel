@@ -8,6 +8,11 @@ public final class InternalIdentity implements Identity {
 
   private InternalIdentity() {}
 
+  @Override
+  public String getType() {
+    return "internal";
+  }
+
   @JsonCreator
   static InternalIdentity getInstance() {
     return INSTANCE;

@@ -10,8 +10,8 @@ public record RevertRequest(
     String entityId,
     String entityName,
     String action,
-    String oldData,
-    String newData,
+    String backwardData,
+    String forwardData,
     Instant changedAt,
     String parentId)
     implements Serializable {

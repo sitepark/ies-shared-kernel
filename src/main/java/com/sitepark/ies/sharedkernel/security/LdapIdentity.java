@@ -26,6 +26,11 @@ public final class LdapIdentity implements Identity {
     this.dn = dn;
   }
 
+  @Override
+  public String getType() {
+    return "ldap";
+  }
+
   @JsonProperty
   public String serverId() {
     return this.serverId;

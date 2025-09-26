@@ -7,6 +7,7 @@ module com.sitepark.ies.sharedkernel {
   exports com.sitepark.ies.sharedkernel.domain;
   exports com.sitepark.ies.sharedkernel.backgroundoperation;
   exports com.sitepark.ies.sharedkernel.patch;
+  exports com.sitepark.ies.sharedkernel.json;
 
   requires org.apache.logging.log4j;
   requires transitive com.fasterxml.jackson.databind;

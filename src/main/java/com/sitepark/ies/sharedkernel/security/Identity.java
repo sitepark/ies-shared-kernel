@@ -8,11 +8,15 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
  * Classes like {@link LdapIdentity} implement this interface to specify how users can authenticate
  * themselves using different identity providers.
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    property = "type",
+    include = JsonTypeInfo.As.EXISTING_PROPERTY)
 @JsonSubTypes({
   @JsonSubTypes.Type(value = LdapIdentity.class, name = "ldap"),
   @JsonSubTypes.Type(value = InternalIdentity.class, name = "internal")
 })
+@SuppressWarnings("PMD.ImplicitFunctionalInterface")
 public interface Identity {
 
   static Identity internal() {
@@ -22,4 +26,6 @@ public interface Identity {
   static Identity ldap(String serverId, String dn) {
     return new LdapIdentity(serverId, dn);
   }
+
+  String getType();
 }
