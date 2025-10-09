@@ -1,14 +1,29 @@
 # Shared Kernel
 
-The shared kernel contains generic domain models, technical base objects, and cross-cutting concerns such as labeling
-and data identification (e.g., Anchor, Identifier).
+The shared kernel contains generic domain models, technical base objects, cross-cutting concerns such as labeling
+and data identification (e.g., Anchor, Identifier), and infrastructure-independent annotations for JSON serialization.
 
 ## Goal and Benefits
 
-- **Standardization**: Central definition of shared models and policies.
-- **Consistency**: Clear standards and centralized policies for cross-cutting concerns.
-- **Reusability**: Avoidance of redundant implementations in individual modules.
-- **Abstraction**: Provision of abstract interfaces for mechanisms that are independent of specific business logic.
+- **Standardization**: Central definition of shared models and policies
+- **Consistency**: Clear standards and centralized policies for cross-cutting concerns
+- **Reusability**: Avoidance of redundant implementations in individual modules
+- **Abstraction**: Provision of abstract interfaces for mechanisms that are independent of specific business logic
+- **Infrastructure Independence**: Domain-agnostic annotations that work with any infrastructure implementation
+
+## JSON Serialization Annotations
+
+This module provides annotations for clean JSON serialization patterns:
+
+- **[Unique-Property-Based Polymorphic Deserialization](doc/unique-property-deserialization.md)**
+  - Clean polymorphic JSON without type discriminator fields
+  - Annotations: `@UseUniquePropertyDeserializer`, `@UniquePropertyType`
+  - Use case: Filter DSL, Event Sourcing, Command Pattern
+
+- **[RawJson Annotation](doc/rawjson.md)**
+  - Bidirectional conversion between JSON strings and parsed JSON
+  - Annotation: `@RawJson`
+  - Use case: Flexible schema storage, Event payloads, Audit logging
 
 ## Design Principles
 
