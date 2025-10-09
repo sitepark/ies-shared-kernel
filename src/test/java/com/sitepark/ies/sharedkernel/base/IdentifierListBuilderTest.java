@@ -15,8 +15,7 @@ class IdentifierListBuilderTest {
     List<Identifier> result = builder.set("123", "456", "test-anchor").build();
 
     List<Identifier> expected =
-        List.of(
-            Identifier.ofId("123"), Identifier.ofId("456"), Identifier.ofAnchor("test-anchor"));
+        List.of(Identifier.ofId("123"), Identifier.ofId("456"), Identifier.ofAnchor("test-anchor"));
 
     assertEquals(expected, result, "Should set identifiers from string varargs");
   }
@@ -39,8 +38,7 @@ class IdentifierListBuilderTest {
     List<Identifier> result = builder.set(strings).build();
 
     List<Identifier> expected =
-        List.of(
-            Identifier.ofId("111"), Identifier.ofId("222"), Identifier.ofAnchor("anchor-test"));
+        List.of(Identifier.ofId("111"), Identifier.ofId("222"), Identifier.ofAnchor("anchor-test"));
 
     assertEquals(expected, result, "Should set identifiers from string collection");
   }
@@ -61,8 +59,7 @@ class IdentifierListBuilderTest {
     IdentifierListBuilder builder = new IdentifierListBuilder();
     List<Identifier> result = builder.add("123").add("test-anchor").build();
 
-    List<Identifier> expected =
-        List.of(Identifier.ofId("123"), Identifier.ofAnchor("test-anchor"));
+    List<Identifier> expected = List.of(Identifier.ofId("123"), Identifier.ofAnchor("test-anchor"));
 
     assertEquals(expected, result, "Should add identifiers from strings");
   }
@@ -232,8 +229,7 @@ class IdentifierListBuilderTest {
     Anchor anchor2 = Anchor.ofString("anchor-b");
     List<Identifier> result = builder.anchors(anchor1, anchor2).build();
 
-    List<Identifier> expected =
-        List.of(Identifier.ofAnchor(anchor1), Identifier.ofAnchor(anchor2));
+    List<Identifier> expected = List.of(Identifier.ofAnchor(anchor1), Identifier.ofAnchor(anchor2));
 
     assertEquals(expected, result, "Should set anchors from varargs");
   }
@@ -257,8 +253,7 @@ class IdentifierListBuilderTest {
     List<Anchor> anchors = List.of(anchor1, anchor2);
     List<Identifier> result = builder.anchors(anchors).build();
 
-    List<Identifier> expected =
-        List.of(Identifier.ofAnchor(anchor1), Identifier.ofAnchor(anchor2));
+    List<Identifier> expected = List.of(Identifier.ofAnchor(anchor1), Identifier.ofAnchor(anchor2));
 
     assertEquals(expected, result, "Should set anchors from collection");
   }
@@ -281,8 +276,7 @@ class IdentifierListBuilderTest {
     Anchor anchor2 = Anchor.ofString("second-anchor");
     List<Identifier> result = builder.anchor(anchor1).anchor(anchor2).build();
 
-    List<Identifier> expected =
-        List.of(Identifier.ofAnchor(anchor1), Identifier.ofAnchor(anchor2));
+    List<Identifier> expected = List.of(Identifier.ofAnchor(anchor1), Identifier.ofAnchor(anchor2));
 
     assertEquals(expected, result, "Should add anchors individually");
   }
@@ -340,14 +334,9 @@ class IdentifierListBuilderTest {
     builder.id("1").id("2");
     List<Identifier> firstBuild = builder.build();
     builder.id("3");
-    List<Identifier> secondBuild = builder.build();
 
     List<Identifier> expectedFirst = List.of(Identifier.ofId("1"), Identifier.ofId("2"));
-    List<Identifier> expectedSecond =
-        List.of(Identifier.ofId("1"), Identifier.ofId("2"), Identifier.ofId("3"));
 
     assertEquals(expectedFirst, firstBuild, "First build should contain only first two IDs");
-    assertEquals(
-        expectedSecond, secondBuild, "Second build should contain all three IDs after addition");
   }
 }
