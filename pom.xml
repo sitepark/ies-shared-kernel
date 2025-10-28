@@ -341,7 +341,7 @@
 							<formatJavadoc>false</formatJavadoc>
 							<reflowLongStrings>true</reflowLongStrings>
 							<style>GOOGLE</style>
-							<version>1.19.2</version>
+							<version>1.31.0</version>
 						</googleJavaFormat>
 
 						<!-- apply a specific flavor of google-java-format and reflow long strings -->

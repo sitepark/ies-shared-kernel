@@ -182,7 +182,8 @@ class UserTest {
 
     String expected =
         """
-        {"id":"1","username":"testUser","firstName":"Test","lastName":"User","email":"test@test.com","identity":{"type":"internal"},"authMethods":["PASSWORD"],"authFactors":["TOTP"],"roles":["ROLE_USER"]}""";
+        {"id":"1","username":"testUser","firstName":"Test","lastName":"User","email":"test@test.com","identity":{"type":"internal"},"authMethods":["PASSWORD"],"authFactors":["TOTP"],"roles":["ROLE_USER"]}\
+        """;
 
     assertEquals(expected, json, "Serialized JSON should match expected format");
   }
@@ -192,7 +193,8 @@ class UserTest {
     ObjectMapper mapper = new ObjectMapper();
     String json =
         """
-        {"id":"1","username":"testUser","firstName":"Test","lastName":"User","email":"test@test.com","identity":{"type":"internal"},"authMethods":["PASSWORD"],"authFactors":["TOTP"],"roles":["ROLE_USER"]}""";
+        {"id":"1","username":"testUser","firstName":"Test","lastName":"User","email":"test@test.com","identity":{"type":"internal"},"authMethods":["PASSWORD"],"authFactors":["TOTP"],"roles":["ROLE_USER"]}\
+        """;
     User user = mapper.readValue(json, User.class);
 
     assertEquals(this.user, user, "Deserialized User should match original User");
