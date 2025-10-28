@@ -333,7 +333,7 @@
 			<plugin>
 				<groupId>com.diffplug.spotless</groupId>
 				<artifactId>spotless-maven-plugin</artifactId>
-				<version>2.46.1</version>
+				<version>3.0.0</version>
 				<configuration>
 					<!-- define a language-specific format -->
 					<java>
@@ -341,7 +341,7 @@
 							<formatJavadoc>false</formatJavadoc>
 							<reflowLongStrings>true</reflowLongStrings>
 							<style>GOOGLE</style>
-							<version>1.19.2</version>
+							<version>1.31.0</version>
 						</googleJavaFormat>
 
 						<!-- apply a specific flavor of google-java-format and reflow long strings -->
