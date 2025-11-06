@@ -14,6 +14,7 @@ module com.sitepark.ies.sharedkernel {
   requires com.fasterxml.jackson.annotation;
   requires static com.github.spotbugs.annotations;
   requires static org.jetbrains.annotations;
+  requires jsr305;
 
   opens com.sitepark.ies.sharedkernel.base;
   opens com.sitepark.ies.sharedkernel.anchor;

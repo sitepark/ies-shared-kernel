@@ -8,9 +8,6 @@ public interface Authentication {
   /** Name of the subject for which this authentication applies. */
   String name();
 
-  /** Specifies the purpose for which the authentication applies. */
-  String purpose();
-
   /** Returns all permissions that were obtained via this authentication. */
   List<Permission> permissions();
 
