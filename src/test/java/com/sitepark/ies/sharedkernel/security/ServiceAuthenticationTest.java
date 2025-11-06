@@ -11,7 +11,7 @@ class ServiceAuthenticationTest {
   void testGetName() {
     ServiceAuthentication serviceAuthentication =
         ServiceAuthentication.builder().name("testPurpose").build();
-    assertEquals("System", serviceAuthentication.name(), "getName should return 'System'");
+    assertEquals("testPurpose", serviceAuthentication.name(), "getName should return 'System'");
   }
 
   @Test
