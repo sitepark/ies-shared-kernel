@@ -34,26 +34,22 @@ public interface PermissionService {
   List<Permission> createPermissions(String permissions);
 
   /**
-   * @throws PermissionSerializeException Thrown when the permission-payload data could not be
-   *     serialized.
+   * @throws PermissionSerializeException Thrown when the permission could not be serialized.
    */
-  String serializePermissionPayloads(List<PermissionPayload> permissionPayloads);
+  String serializePermissions(List<Permission> permissions);
 
   /**
-   * @throws PermissionSerializeException Thrown when the permission-payload data could not be
-   *     serialized.
+   * @throws PermissionSerializeException Thrown when the permission could not be serialized.
    */
-  String serializePermissionPayload(PermissionPayload permissionPayload);
+  String serializePermission(Permission permission);
 
   /**
-   * @throws PermissionDeserializeException Thrown when the permission-payload data could not be
-   *     deserialized.
+   * @throws PermissionDeserializeException Thrown when the permission could not be deserialized.
    */
-  List<PermissionPayload> deserializePermissionPayloads(String data);
+  List<Permission> deserializePermissions(String data);
 
   /**
-   * @throws PermissionDeserializeException Thrown when the permission-payload data could not be
-   *     deserialized.
+   * @throws PermissionDeserializeException Thrown when the permission could not be deserialized.
    */
-  PermissionPayload deserializePermissionPayload(String data);
+  Permission deserializePermission(String data);
 }
