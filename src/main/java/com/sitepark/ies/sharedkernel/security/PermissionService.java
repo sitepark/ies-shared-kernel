@@ -1,14 +1,14 @@
 package com.sitepark.ies.sharedkernel.security;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import java.util.List;
+import java.util.Map;
 
 public interface PermissionService {
 
   /**
    * @throws PermissionCreateException Thrown when the permission could not be created.
    */
-  Permission createPermission(JsonNode permissionData);
+  Permission createPermission(Map<String, Object> permission);
 
   /**
    * @throws PermissionSerializeException Thrown when the permission could not be serialized.
