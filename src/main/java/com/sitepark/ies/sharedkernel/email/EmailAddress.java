@@ -5,6 +5,21 @@ import java.util.Objects;
 import javax.annotation.concurrent.Immutable;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Represents an email address with optional display name.
+ *
+ * <p>This immutable value object encapsulates an email address and an
+ * optional human-readable name. Used for sender and recipient information
+ * in {@link Email}.
+ *
+ * <p>Example usage:
+ * <pre>{@code
+ * EmailAddress address = EmailAddress.builder()
+ *     .address("user@example.com")
+ *     .name("Max Mustermann")
+ *     .build();
+ * }</pre>
+ */
 @SuppressWarnings({"PMD.AvoidFieldNameMatchingMethodName"})
 @Immutable
 public final class EmailAddress {

@@ -8,6 +8,34 @@ import java.util.function.Consumer;
 import javax.annotation.concurrent.Immutable;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Represents an email with all metadata and content.
+ *
+ * <p>This class encapsulates all information needed to send an email:
+ * sender, recipients, and message content. The message can be either a
+ * {@link SimpleEmailMessage} with pre-rendered content or a
+ * {@link TemplateEmailMessage} that will be rendered using templates.
+ *
+ * <p>Example usage:
+ * <pre>{@code
+ * Email email = Email.builder()
+ *     .from(EmailAddress.builder()
+ *         .address("noreply@example.com")
+ *         .name("IES System")
+ *         .build())
+ *     .to(configurer -> configurer.set(
+ *         EmailAddress.builder()
+ *             .address("user@example.com")
+ *             .name("Max Mustermann")
+ *             .build()))
+ *     .message(templateMessage)
+ *     .build();
+ * }</pre>
+ *
+ * <p>The builder provides convenient configurers for recipient lists using
+ * {@link ListBuilder}, allowing fluent construction of recipient collections.
+ * If no reply-to addresses are specified, the from address is used as default.
+ */
 @SuppressWarnings({
   "PMD.AvoidFieldNameMatchingMethodName",
   "PMD.LawOfDemeter",

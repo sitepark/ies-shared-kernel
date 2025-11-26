@@ -8,6 +8,50 @@ import java.util.function.Consumer;
 import javax.annotation.concurrent.Immutable;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Template-based email message using Mustache templates.
+ *
+ * <p>This message type enables template-based email rendering with:
+ * <ul>
+ *   <li><b>Message Types</b> - Reusable template definitions (e.g., "password-recovery")</li>
+ *   <li><b>Themes</b> - Visual styling with colors, typography, and logos</li>
+ *   <li><b>Multi-Language Support</b> - Language-specific templates and defaults</li>
+ *   <li><b>Variable Preprocessing</b> - Dynamic data with theme property access</li>
+ *   <li><b>Data Merging</b> - Deep merge of default data with runtime data</li>
+ * </ul>
+ *
+ * <p>The subject must be provided in the {@code data} map under the key "subject".
+ * This allows language-specific subjects via default data and dynamic subject generation.
+ *
+ * <p>Example usage:
+ * <pre>{@code
+ * TemplateEmailMessage message = TemplateEmailMessage.builder()
+ *     .messageType("password-recovery")
+ *     .theme("default")
+ *     .lang("de")
+ *     .data(configurer -> configurer
+ *         .put("subject", "Passwort zurücksetzen")
+ *         .put("code", "123456")
+ *         .put("expiresAt", "14:30"))
+ *     .build();
+ * }</pre>
+ *
+ * <p>The rendering process:
+ * <ol>
+ *   <li>Load template by message type</li>
+ *   <li>Merge language-specific default data with runtime data (deep merge)</li>
+ *   <li>Load theme (language-aware for localized styling)</li>
+ *   <li>Preprocess variables:
+ *     <ul>
+ *       <li>HTML: Convert line breaks (\n) to &lt;br&gt; tags</li>
+ *       <li>Plain: Keep line breaks unchanged</li>
+ *       <li>Both: Resolve Mustache expressions in variable values</li>
+ *     </ul>
+ *   </li>
+ *   <li>Extract subject from preprocessed data.subject</li>
+ *   <li>Render HTML and text templates with preprocessed variables</li>
+ * </ol>
+ */
 @SuppressWarnings({"PMD.AvoidFieldNameMatchingMethodName"})
 @Immutable
 public final class TemplateEmailMessage implements EmailMessage {
