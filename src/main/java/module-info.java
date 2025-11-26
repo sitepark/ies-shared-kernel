@@ -20,4 +20,6 @@ module com.sitepark.ies.sharedkernel {
   opens com.sitepark.ies.sharedkernel.anchor;
   opens com.sitepark.ies.sharedkernel.security;
   opens com.sitepark.ies.sharedkernel.audit;
+
+  exports com.sitepark.ies.sharedkernel.email;
 }

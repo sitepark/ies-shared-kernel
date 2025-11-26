@@ -91,7 +91,7 @@ public final class User {
   }
 
   @JsonIgnore
-  public String getName() {
+  public String toDisplayName() {
     StringBuilder name = new StringBuilder();
     if (firstName != null && !firstName.isBlank()) {
       name.append(firstName);
