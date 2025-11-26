@@ -58,7 +58,7 @@ public final class Email {
 
   @Override
   public int hashCode() {
-    return Objects.hash(from, replyTo, to, cc, bcc);
+    return Objects.hash(from, replyTo, to, cc, bcc, message);
   }
 
   @Override
@@ -68,7 +68,8 @@ public final class Email {
         && Objects.equals(this.replyTo, that.replyTo)
         && Objects.equals(this.to, that.to)
         && Objects.equals(this.cc, that.cc)
-        && Objects.equals(this.bcc, that.bcc);
+        && Objects.equals(this.bcc, that.bcc)
+        && Objects.equals(this.message, that.message);
   }
 
   @Override
@@ -84,6 +85,8 @@ public final class Email {
         + cc
         + ", bcc="
         + bcc
+        + ", message="
+        + message
         + '}';
   }
 
