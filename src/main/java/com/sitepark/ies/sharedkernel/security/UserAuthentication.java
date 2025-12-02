@@ -27,7 +27,7 @@ public final class UserAuthentication implements Authentication {
 
   @Override
   public String name() {
-    return user.getName();
+    return user.toDisplayName();
   }
 
   @Override
@@ -42,10 +42,8 @@ public final class UserAuthentication implements Authentication {
 
   @Override
   public boolean equals(Object obj) {
-    if (!(obj instanceof UserAuthentication that)) {
-      return false;
-    }
-    return Objects.equals(this.user, that.user)
+    return (obj instanceof UserAuthentication that)
+        && Objects.equals(this.user, that.user)
         && Objects.equals(this.permissions, that.permissions);
   }
 
