@@ -39,15 +39,15 @@ class UserTest {
   }
 
   @Test
-  void testGetName() {
+  void testToDisplayName() {
     assertEquals(
         "Test User",
-        this.user.getName(),
+        this.user.toDisplayName(),
         "getName should return 'Test User' for first and last name");
   }
 
   @Test
-  void testGetNameWithBlankFirstName() {
+  void testToDisplayNameWithBlankFirstName() {
     User user =
         User.builder()
             .id("1")
@@ -60,11 +60,12 @@ class UserTest {
             .authFactors(AuthFactor.TOTP)
             .build();
 
-    assertEquals("User", user.getName(), "getName should return 'User' when first name is blank");
+    assertEquals(
+        "User", user.toDisplayName(), "getName should return 'User' when first name is blank");
   }
 
   @Test
-  void testGetNameWithNullFirstName() {
+  void testToDisplayNameWithNullFirstName() {
     User user =
         User.builder()
             .id("1")
@@ -75,7 +76,8 @@ class UserTest {
             .authMethods(AuthMethod.PASSWORD)
             .authFactors(AuthFactor.TOTP)
             .build();
-    assertEquals("User", user.getName(), "getName should return 'User' when first name is blank");
+    assertEquals(
+        "User", user.toDisplayName(), "getName should return 'User' when first name is blank");
   }
 
   @Test
