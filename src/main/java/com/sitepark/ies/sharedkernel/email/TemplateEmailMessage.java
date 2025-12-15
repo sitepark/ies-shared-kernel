@@ -12,18 +12,20 @@ import org.jetbrains.annotations.NotNull;
  * Template-based email message using Mustache templates.
  *
  * <p>This message type enables template-based email rendering with:
+ *
  * <ul>
- *   <li><b>Message Types</b> - Reusable template definitions (e.g., "password-recovery")</li>
- *   <li><b>Themes</b> - Visual styling with colors, typography, and logos</li>
- *   <li><b>Multi-Language Support</b> - Language-specific templates and defaults</li>
- *   <li><b>Variable Preprocessing</b> - Dynamic data with theme property access</li>
- *   <li><b>Data Merging</b> - Deep merge of default data with runtime data</li>
+ *   <li><b>Message Types</b> - Reusable template definitions (e.g., "password-recovery")
+ *   <li><b>Themes</b> - Visual styling with colors, typography, and logos
+ *   <li><b>Multi-Language Support</b> - Language-specific templates and defaults
+ *   <li><b>Variable Preprocessing</b> - Dynamic data with theme property access
+ *   <li><b>Data Merging</b> - Deep merge of default data with runtime data
  * </ul>
  *
- * <p>The subject must be provided in the {@code data} map under the key "subject".
- * This allows language-specific subjects via default data and dynamic subject generation.
+ * <p>The subject must be provided in the {@code data} map under the key "subject". This allows
+ * language-specific subjects via default data and dynamic subject generation.
  *
  * <p>Example usage:
+ *
  * <pre>{@code
  * TemplateEmailMessage message = TemplateEmailMessage.builder()
  *     .messageType("password-recovery")
@@ -37,30 +39,31 @@ import org.jetbrains.annotations.NotNull;
  * }</pre>
  *
  * <p>The rendering process:
+ *
  * <ol>
- *   <li>Load template by message type</li>
- *   <li>Merge language-specific default data with runtime data (deep merge)</li>
- *   <li>Load theme (language-aware for localized styling)</li>
+ *   <li>Load template by message type
+ *   <li>Merge language-specific default data with runtime data (deep merge)
+ *   <li>Load theme (language-aware for localized styling)
  *   <li>Preprocess variables:
- *     <ul>
- *       <li>HTML: Convert line breaks (\n) to &lt;br&gt; tags</li>
- *       <li>Plain: Keep line breaks unchanged</li>
- *       <li>Both: Resolve Mustache expressions in variable values</li>
- *     </ul>
- *   </li>
- *   <li>Extract subject from preprocessed data.subject</li>
- *   <li>Render HTML and text templates with preprocessed variables</li>
+ *       <ul>
+ *         <li>HTML: Convert line breaks (\n) to &lt;br&gt; tags
+ *         <li>Plain: Keep line breaks unchanged
+ *         <li>Both: Resolve Mustache expressions in variable values
+ *       </ul>
+ *   <li>Extract subject from preprocessed data.subject
+ *   <li>Render HTML and text templates with preprocessed variables
  * </ol>
  */
 @SuppressWarnings({"PMD.AvoidFieldNameMatchingMethodName"})
 @Immutable
 public final class TemplateEmailMessage implements EmailMessage {
 
-  @NotNull private final String messageType;
-  private final String theme;
+  @NotNull private final EmailMessageTypeIdentifier messageType;
+  private final EmailMessageThemeIdentifier theme;
   @NotNull private final Map<String, Object> data;
   private final String lang;
 
+  @SuppressWarnings("PMD.LawOfDemeter")
   private TemplateEmailMessage(Builder builder) {
     this.messageType = builder.messageType;
     this.theme = builder.theme;
@@ -68,11 +71,11 @@ public final class TemplateEmailMessage implements EmailMessage {
     this.lang = builder.lang;
   }
 
-  public String messageType() {
+  public EmailMessageTypeIdentifier messageType() {
     return this.messageType;
   }
 
-  public String theme() {
+  public EmailMessageThemeIdentifier theme() {
     return this.theme;
   }
 
@@ -124,13 +127,14 @@ public final class TemplateEmailMessage implements EmailMessage {
 
   @SuppressWarnings("PMD.UseConcurrentHashMap")
   public static final class Builder {
-    private String messageType;
-    private String theme;
+    private EmailMessageTypeIdentifier messageType;
+    private EmailMessageThemeIdentifier theme;
     private final Map<String, Object> data = new HashMap<>();
     private String lang;
 
     private Builder() {}
 
+    @SuppressWarnings("PMD.LawOfDemeter")
     private Builder(TemplateEmailMessage templateEmailMessage) {
       this.messageType = templateEmailMessage.messageType;
       this.theme = templateEmailMessage.theme;
@@ -138,16 +142,14 @@ public final class TemplateEmailMessage implements EmailMessage {
       this.lang = templateEmailMessage.lang;
     }
 
-    public Builder messageType(String messageType) {
+    public Builder messageType(EmailMessageTypeIdentifier messageType) {
       Objects.requireNonNull(messageType, "messageType must not be null");
-      if (messageType.isBlank()) {
-        throw new IllegalArgumentException("messageType must not be blank");
-      }
       this.messageType = messageType;
       return this;
     }
 
-    public Builder theme(String theme) {
+    public Builder theme(EmailMessageThemeIdentifier theme) {
+      Objects.requireNonNull(theme, "theme must not be null");
       this.theme = theme;
       return this;
     }

@@ -12,12 +12,15 @@ import org.junit.jupiter.api.Test;
 
 class EmailTest {
 
+  private static final EmailMessageTypeIdentifier MESSAGE_TYPE =
+      EmailMessageTypeIdentifier.of("registration", "welcome");
+
   private static EmailAddress createTestAddress(String address) {
     return EmailAddress.builder().address(address).build();
   }
 
   private static EmailMessage createTestMessage() {
-    return TemplateEmailMessage.builder().messageType("test").build();
+    return TemplateEmailMessage.builder().messageType(MESSAGE_TYPE).build();
   }
 
   @Test
