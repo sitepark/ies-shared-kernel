@@ -99,7 +99,7 @@ public final class Anchor implements Serializable {
 
   @Override
   public int hashCode() {
-    return this.name != null ? this.name.hashCode() : 0;
+    return Objects.hash(name);
   }
 
   @Override

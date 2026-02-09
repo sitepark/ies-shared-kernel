@@ -8,6 +8,7 @@ module com.sitepark.ies.sharedkernel {
   exports com.sitepark.ies.sharedkernel.backgroundoperation;
   exports com.sitepark.ies.sharedkernel.patch;
   exports com.sitepark.ies.sharedkernel.json;
+  exports com.sitepark.ies.sharedkernel.email;
 
   requires org.apache.logging.log4j;
   requires transitive com.fasterxml.jackson.databind;
@@ -20,6 +21,5 @@ module com.sitepark.ies.sharedkernel {
   opens com.sitepark.ies.sharedkernel.anchor;
   opens com.sitepark.ies.sharedkernel.security;
   opens com.sitepark.ies.sharedkernel.audit;
-
-  exports com.sitepark.ies.sharedkernel.email;
+  opens com.sitepark.ies.sharedkernel.domain;
 }
