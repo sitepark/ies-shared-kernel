@@ -3,7 +3,6 @@ module com.sitepark.ies.sharedkernel {
   exports com.sitepark.ies.sharedkernel.anchor;
   exports com.sitepark.ies.sharedkernel.security;
   exports com.sitepark.ies.sharedkernel.security.annotation;
-  exports com.sitepark.ies.sharedkernel.audit;
   exports com.sitepark.ies.sharedkernel.domain;
   exports com.sitepark.ies.sharedkernel.backgroundoperation;
   exports com.sitepark.ies.sharedkernel.patch;
@@ -20,6 +19,5 @@ module com.sitepark.ies.sharedkernel {
   opens com.sitepark.ies.sharedkernel.base;
   opens com.sitepark.ies.sharedkernel.anchor;
   opens com.sitepark.ies.sharedkernel.security;
-  opens com.sitepark.ies.sharedkernel.audit;
   opens com.sitepark.ies.sharedkernel.domain;
 }

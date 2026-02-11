@@ -31,7 +31,14 @@ public final class EntityRef implements Comparable<EntityRef> {
   }
 
   public static String toTypeString(Class<?> type) {
+    if (type == null) {
+      return null;
+    }
     return type.getSimpleName().toLowerCase(Locale.ROOT);
+  }
+
+  public static boolean isType(Class<?> roleClass, String s) {
+    return toTypeString(roleClass).equals(s);
   }
 
   @JsonProperty
