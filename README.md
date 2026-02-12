@@ -1,4 +1,5 @@
 [![codecov](https://codecov.io/gh/sitepark/ies-shared-kernel/graph/badge.svg?token=MZJwjtQ0Hr)](https://codecov.io/gh/sitepark/ies-shared-kernel)
+[![Known Vulnerabilities](https://snyk.io/test/github/sitepark/ies-shared-kernel/badge.svg)](https://snyk.io/test/github/sitepark/ies-shared-kernel/)
 
 # Shared Kernel
 
