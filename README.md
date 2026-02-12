@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/sitepark/ies-shared-kernel/graph/badge.svg?token=MZJwjtQ0Hr)](https://codecov.io/gh/sitepark/ies-shared-kernel)
+
 # Shared Kernel
 
 The shared kernel contains generic domain models, technical base objects, cross-cutting concerns such as labeling
