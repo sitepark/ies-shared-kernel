@@ -22,6 +22,7 @@ import java.util.function.Consumer;
  * <h2>The Three States</h2>
  *
  * <table border="1">
+ *   <caption>The Three States</caption>
  *   <tr>
  *     <th>Creation</th>
  *     <th>shouldUpdate()</th>
@@ -112,6 +113,7 @@ import java.util.function.Consumer;
  * <h2>Comparison with Alternatives</h2>
  *
  * <table border="1">
+ *   <caption>Comparison with Alternatives</caption>
  *   <tr>
  *     <th>Approach</th>
  *     <th>Not Provided</th>
@@ -160,7 +162,6 @@ import java.util.function.Consumer;
  * it means "explicitly clear this field", which is different from "don't change this field".
  *
  * @param <T> the type of the value that may be updated
- * @author [Your Name]
  * @since 1.0.0
  * @see Optional
  * @see java.util.List
