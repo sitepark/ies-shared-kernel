@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 public final class ListBuilder<T> {
 
   @NotNull private final List<T> list = new ArrayList<>();
+  private boolean changed;
 
   @SafeVarargs
   public final ListBuilder<T> set(T... items) {
@@ -18,6 +19,7 @@ public final class ListBuilder<T> {
     for (T item : items) {
       this.add(item);
     }
+    this.changed = true;
     return this;
   }
 
@@ -29,6 +31,7 @@ public final class ListBuilder<T> {
     for (T item : items) {
       this.add(item);
     }
+    this.changed = true;
     return this;
   }
 
@@ -40,6 +43,7 @@ public final class ListBuilder<T> {
     for (T item : items) {
       this.add(item);
     }
+    this.changed = true;
     return this;
   }
 
@@ -50,6 +54,7 @@ public final class ListBuilder<T> {
     for (T item : items) {
       this.add(item);
     }
+    this.changed = true;
     return this;
   }
 
@@ -58,7 +63,12 @@ public final class ListBuilder<T> {
       return this;
     }
     this.list.add(item);
+    this.changed = true;
     return this;
+  }
+
+  public boolean changed() {
+    return this.changed;
   }
 
   public List<T> build() {

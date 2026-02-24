@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public class IdentifierListBuilder {
 
   @NotNull private final List<Identifier> identifiers = new ArrayList<>();
+  private boolean changed;
 
   public IdentifierListBuilder set(String... identifiers) {
     if (identifiers == null) {
@@ -19,6 +20,7 @@ public class IdentifierListBuilder {
     for (String identifier : identifiers) {
       this.add(identifier);
     }
+    this.changed = true;
     return this;
   }
 
@@ -30,6 +32,7 @@ public class IdentifierListBuilder {
     for (String identifier : identifiers) {
       this.add(identifier);
     }
+    this.changed = true;
     return this;
   }
 
@@ -38,6 +41,7 @@ public class IdentifierListBuilder {
       return this;
     }
     this.identifiers.add(Identifier.ofString(identifier));
+    this.changed = true;
     return this;
   }
 
@@ -49,6 +53,7 @@ public class IdentifierListBuilder {
     for (Identifier identifier : identifiers) {
       this.identifier(identifier);
     }
+    this.changed = true;
     return this;
   }
 
@@ -60,6 +65,7 @@ public class IdentifierListBuilder {
     for (Identifier identifier : identifiers) {
       this.identifier(identifier);
     }
+    this.changed = true;
     return this;
   }
 
@@ -68,6 +74,7 @@ public class IdentifierListBuilder {
       return this;
     }
     this.identifiers.add(identifier);
+    this.changed = true;
     return this;
   }
 
@@ -79,6 +86,7 @@ public class IdentifierListBuilder {
     for (String id : ids) {
       this.id(id);
     }
+    this.changed = true;
     return this;
   }
 
@@ -90,6 +98,7 @@ public class IdentifierListBuilder {
     for (String id : ids) {
       this.id(id);
     }
+    this.changed = true;
     return this;
   }
 
@@ -98,6 +107,7 @@ public class IdentifierListBuilder {
       return this;
     }
     this.identifiers.add(Identifier.ofId(id));
+    this.changed = true;
     return this;
   }
 
@@ -109,6 +119,7 @@ public class IdentifierListBuilder {
     for (Anchor anchor : anchors) {
       this.anchor(anchor);
     }
+    this.changed = true;
     return this;
   }
 
@@ -120,6 +131,7 @@ public class IdentifierListBuilder {
     for (Anchor anchor : anchors) {
       this.anchor(anchor);
     }
+    this.changed = true;
     return this;
   }
 
@@ -128,7 +140,12 @@ public class IdentifierListBuilder {
       return this;
     }
     this.identifiers.add(Identifier.ofAnchor(anchor));
+    this.changed = true;
     return this;
+  }
+
+  public boolean changed() {
+    return this.changed;
   }
 
   public List<Identifier> build() {

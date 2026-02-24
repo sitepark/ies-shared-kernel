@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 public final class MapBuilder<K, V> {
 
   @NotNull private final Map<K, V> map = new HashMap<>();
+  private boolean changed;
 
   @SafeVarargs
   public final MapBuilder<K, V> set(Entry<K, V>... entries) {
@@ -22,6 +23,7 @@ public final class MapBuilder<K, V> {
       }
       this.map.put(entry.getKey(), entry.getValue());
     }
+    this.changed = true;
     return this;
   }
 
@@ -31,6 +33,7 @@ public final class MapBuilder<K, V> {
     }
     this.map.clear();
     this.map.putAll(map);
+    this.changed = true;
     return this;
   }
 
@@ -39,6 +42,7 @@ public final class MapBuilder<K, V> {
       return this;
     }
     this.map.putAll(map);
+    this.changed = true;
     return this;
   }
 
@@ -47,7 +51,12 @@ public final class MapBuilder<K, V> {
       return this;
     }
     this.map.put(key, value);
+    this.changed = true;
     return this;
+  }
+
+  public boolean changed() {
+    return this.changed;
   }
 
   public Map<K, V> build() {
