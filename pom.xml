@@ -6,7 +6,7 @@
 
 	<groupId>com.sitepark.ies</groupId>
 	<artifactId>ies-shared-kernel</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 
 	<name>IES Shared Kernel</name>
 	<description>Shared kernel containing generic domain models, technical base objects, and
@@ -43,7 +43,7 @@
 	<scm>
 		<connection>scm:git:git@github.com:sitepark/ies-shared-kernel.git</connection>
 		<developerConnection>scm:git:git@github.com:sitepark/ies-shared-kernel.git</developerConnection>
-		<tag>HEAD</tag>
+		<tag>1.0.0</tag>
 		<url>https://github.com/sitepark/ies-shared-kernel</url>
 	</scm>
 
@@ -269,7 +269,7 @@
 						</goals>
 						<configuration>
 							<rules>
-								<banDuplicatePomDependencyVersions/>
+								<banDuplicatePomDependencyVersions />
 								<requireJavaVersion>
 									<version>21</version>
 								</requireJavaVersion>
@@ -292,7 +292,7 @@
 									<failWhenParentIsSnapshot>false</failWhenParentIsSnapshot>
 									<message>No Snapshots Allowed!</message>
 								</requireReleaseDeps>
-								<requireReleaseDepsInPlugins implementation="org.apache.maven.enforcer.rule.requireReleaseDepsInPlugins"/>
+								<requireReleaseDepsInPlugins implementation="org.apache.maven.enforcer.rule.requireReleaseDepsInPlugins" />
 							</rules>
 						</configuration>
 					</execution>
