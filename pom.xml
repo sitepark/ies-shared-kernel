@@ -269,7 +269,7 @@
 						</goals>
 						<configuration>
 							<rules>
-								<banDuplicatePomDependencyVersions />
+								<banDuplicatePomDependencyVersions/>
 								<requireJavaVersion>
 									<version>21</version>
 								</requireJavaVersion>
@@ -292,7 +292,7 @@
 									<failWhenParentIsSnapshot>false</failWhenParentIsSnapshot>
 									<message>No Snapshots Allowed!</message>
 								</requireReleaseDeps>
-								<requireReleaseDepsInPlugins implementation="org.apache.maven.enforcer.rule.requireReleaseDepsInPlugins" />
+								<requireReleaseDepsInPlugins implementation="org.apache.maven.enforcer.rule.requireReleaseDepsInPlugins"/>
 							</rules>
 						</configuration>
 					</execution>
@@ -340,21 +340,21 @@
 			<plugin>
 				<groupId>com.diffplug.spotless</groupId>
 				<artifactId>spotless-maven-plugin</artifactId>
-				<version>3.2.1</version>
+				<version>3.6.0</version>
 				<configuration>
 					<!-- define a language-specific format -->
 					<java>
-						<googleJavaFormat>
-							<formatJavadoc>false</formatJavadoc>
-							<reflowLongStrings>true</reflowLongStrings>
-							<style>GOOGLE</style>
-							<version>1.31.0</version>
-						</googleJavaFormat>
-
-						<!-- apply a specific flavor of google-java-format and reflow long strings -->
 						<removeUnusedImports>
 							<engine>google-java-format</engine>
 						</removeUnusedImports>
+
+						<!-- apply a specific flavor of google-java-format and reflow long strings -->
+						<googleJavaFormat>
+							<version>1.31.0</version>
+							<style>GOOGLE</style>
+							<reflowLongStrings>true</reflowLongStrings>
+							<formatJavadoc>false</formatJavadoc>
+						</googleJavaFormat>
 					</java>
 					<pom>
 						<!-- These are the defaults, you can override if you want -->
@@ -369,18 +369,8 @@
 				</configuration>
 				<executions>
 					<execution>
-						<id>spotless-apply</id>
-						<goals>
-							<goal>apply</goal>
-						</goals>
-						<phase>process-sources</phase>
-						<configuration>
-							<skip>${spotless.apply.skip}</skip>
-						</configuration>
-					</execution>
-					<execution>
-						<id>spotless-check</id>
 						<?m2e ignore?>
+						<id>spotless-check</id>
 						<goals>
 							<goal>check</goal>
 						</goals>
@@ -389,16 +379,16 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<!-- https://spotbugs.readthedocs.io/en/latest/maven.html -->
 				<groupId>com.github.spotbugs</groupId>
 				<artifactId>spotbugs-maven-plugin</artifactId>
-				<version>4.9.8.2</version>
+				<version>4.9.8.3</version>
 				<configuration>
 					<effort>Max</effort>
-					<excludeFilterFile>spotbug-exclude-filter.xml</excludeFilterFile>
-					<maxRank>20</maxRank>
 					<threshold>Low</threshold>
+					<maxRank>20</maxRank>
+					<excludeFilterFile>spotbug-exclude-filter.xml</excludeFilterFile>
 				</configuration>
+				<!-- https://spotbugs.readthedocs.io/en/latest/maven.html -->
 				<dependencies>
 					<!-- overwrite dependency on spotbugs if you want to specify the version of
                     spotbugs -->
@@ -422,14 +412,14 @@
 				<artifactId>maven-pmd-plugin</artifactId>
 				<version>3.28.0</version>
 				<configuration>
-					<failOnViolation>true</failOnViolation>
-					<failurePriority>5</failurePriority>
-					<includeTests>true</includeTests>
-					<linkXRef>false</linkXRef>
-					<printFailingErrors>true</printFailingErrors>
 					<rulesets>
 						<ruleset>pmd-ruleset.xml</ruleset>
 					</rulesets>
+					<includeTests>true</includeTests>
+					<failOnViolation>true</failOnViolation>
+					<failurePriority>1</failurePriority>
+					<printFailingErrors>true</printFailingErrors>
+					<linkXRef>false</linkXRef>
 				</configuration>
 				<executions>
 					<execution>
