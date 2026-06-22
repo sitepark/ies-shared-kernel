@@ -3,6 +3,7 @@ package com.sitepark.ies.sharedkernel.base;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Represents an optional value that may or may not be updated in a PATCH/UPDATE operation.
@@ -177,7 +178,7 @@ public final class Updatable<T> {
    * this can be any value including null. When {@code shouldUpdate} is {@code false}, this is
    * always null.
    */
-  private final T newValue;
+  private final @Nullable T newValue;
 
   /**
    * Constructs an Updatable with the given update flag and value.
@@ -185,7 +186,7 @@ public final class Updatable<T> {
    * @param shouldUpdate whether this field should be updated
    * @param newValue the new value (can be null if {@code shouldUpdate} is true)
    */
-  private Updatable(boolean shouldUpdate, T newValue) {
+  private Updatable(boolean shouldUpdate, @Nullable T newValue) {
     this.shouldUpdate = shouldUpdate;
     this.newValue = newValue;
   }
@@ -273,7 +274,7 @@ public final class Updatable<T> {
    * @see #getValue()
    * @see #ifUpdateRequired(Consumer)
    */
-  public static <T> Updatable<T> of(T value) {
+  public static <T> Updatable<T> of(@Nullable T value) {
     return new Updatable<>(true, value);
   }
 
@@ -329,7 +330,7 @@ public final class Updatable<T> {
    * // Result: Update the field and set it to null
    * </pre>
    */
-  public T getValue() {
+  public @Nullable T getValue() {
     return newValue;
   }
 

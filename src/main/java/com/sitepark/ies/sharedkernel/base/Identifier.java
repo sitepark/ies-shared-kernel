@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.sitepark.ies.sharedkernel.anchor.Anchor;
 import java.util.Objects;
 import java.util.function.Function;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * The {@code Identifier} class represents a unique identifier that can either be an ID (a numeric
@@ -35,9 +35,9 @@ public final class Identifier implements Comparable<Identifier> {
 
   private static final String ZERO_ID = "0";
 
-  private final String id;
+  private final @Nullable String id;
 
-  private final Anchor anchor;
+  private final @Nullable Anchor anchor;
 
   private Identifier(String id) {
     this.id = id;
@@ -59,7 +59,7 @@ public final class Identifier implements Comparable<Identifier> {
 
   public static Identifier ofAnchor(String anchor) {
     Objects.requireNonNull(anchor, "anchor is null");
-    return Identifier.ofAnchor(Anchor.ofString(anchor));
+    return Identifier.ofAnchor(Objects.requireNonNull(Anchor.ofString(anchor)));
   }
 
   public static Identifier ofAnchor(Anchor anchor) {
@@ -79,7 +79,7 @@ public final class Identifier implements Comparable<Identifier> {
     if (isId(identifier)) {
       return new Identifier(identifier);
     }
-    return new Identifier(Anchor.ofString(identifier));
+    return new Identifier(Objects.requireNonNull(Anchor.ofString(identifier)));
   }
 
   public static boolean isId(String str) {
@@ -106,8 +106,8 @@ public final class Identifier implements Comparable<Identifier> {
     if (this.id != null) {
       return this.id;
     }
-    assert this.anchor != null : "Neither id nor anchor is set";
-    return anchorResolver.apply(this.anchor);
+    return anchorResolver.apply(
+        Objects.requireNonNull(this.anchor, "Neither id nor anchor is set"));
   }
 
   @Nullable
@@ -141,12 +141,11 @@ public final class Identifier implements Comparable<Identifier> {
     if (this.id != null) {
       return this.id;
     }
-    assert this.anchor != null;
-    return this.anchor.toString();
+    return Objects.requireNonNull(this.anchor).toString();
   }
 
   @Override
-  public int compareTo(@NotNull Identifier o) {
+  public int compareTo(@NonNull Identifier o) {
     return this.toString().compareTo(o.toString());
   }
 }

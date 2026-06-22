@@ -1,3 +1,6 @@
+import org.jspecify.annotations.NullMarked;
+
+@NullMarked
 module com.sitepark.ies.sharedkernel {
   exports com.sitepark.ies.sharedkernel.base;
   exports com.sitepark.ies.sharedkernel.anchor;
@@ -12,9 +15,7 @@ module com.sitepark.ies.sharedkernel {
   requires org.apache.logging.log4j;
   requires transitive com.fasterxml.jackson.databind;
   requires com.fasterxml.jackson.annotation;
-  requires static com.github.spotbugs.annotations;
-  requires static org.jetbrains.annotations;
-  requires jsr305;
+  requires static org.jspecify;
 
   opens com.sitepark.ies.sharedkernel.base;
   opens com.sitepark.ies.sharedkernel.anchor;

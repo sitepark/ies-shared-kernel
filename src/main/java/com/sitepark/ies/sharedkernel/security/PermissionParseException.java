@@ -2,6 +2,7 @@ package com.sitepark.ies.sharedkernel.security;
 
 import com.sitepark.ies.sharedkernel.domain.DomainException;
 import java.io.Serial;
+import org.jspecify.annotations.Nullable;
 
 public class PermissionParseException extends DomainException {
 
@@ -13,7 +14,7 @@ public class PermissionParseException extends DomainException {
     this(data, message, null);
   }
 
-  public PermissionParseException(String data, String message, Throwable cause) {
+  public PermissionParseException(String data, String message, @Nullable Throwable cause) {
     super(message, cause);
     this.data = data;
   }

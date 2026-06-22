@@ -3,12 +3,12 @@ package com.sitepark.ies.sharedkernel.base;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class MapBuilder<K, V> {
 
-  @NotNull private final Map<K, V> map = new HashMap<>();
+  @NonNull private final Map<K, V> map = new HashMap<>();
   private boolean changed;
 
   @SafeVarargs

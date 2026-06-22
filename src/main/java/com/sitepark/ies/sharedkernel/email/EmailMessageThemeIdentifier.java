@@ -2,9 +2,7 @@ package com.sitepark.ies.sharedkernel.email;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
-import javax.annotation.concurrent.Immutable;
 
-@Immutable
 public record EmailMessageThemeIdentifier(String category, String key) {
 
   private static final Pattern VALID_PATTERN = Pattern.compile("^[a-zA-Z0-9-_]+$");

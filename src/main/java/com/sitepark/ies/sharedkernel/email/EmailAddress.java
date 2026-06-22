@@ -2,8 +2,8 @@ package com.sitepark.ies.sharedkernel.email;
 
 import com.sitepark.ies.sharedkernel.security.UserAuthentication.Builder;
 import java.util.Objects;
-import javax.annotation.concurrent.Immutable;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Represents an email address with optional display name.
@@ -21,11 +21,10 @@ import org.jetbrains.annotations.NotNull;
  * }</pre>
  */
 @SuppressWarnings({"PMD.AvoidFieldNameMatchingMethodName"})
-@Immutable
 public final class EmailAddress {
 
-  @NotNull private final String address;
-  private final String name;
+  @NonNull private final String address;
+  private final @Nullable String name;
 
   private EmailAddress(Builder builder) {
     this.address = builder.address;
@@ -36,7 +35,7 @@ public final class EmailAddress {
     return this.address;
   }
 
-  public String name() {
+  public @Nullable String name() {
     return this.name;
   }
 
@@ -65,9 +64,10 @@ public final class EmailAddress {
     return new Builder();
   }
 
+  @SuppressWarnings("NullAway.Init")
   public static final class Builder {
     private String address;
-    private String name;
+    private @Nullable String name;
 
     private Builder() {}
 

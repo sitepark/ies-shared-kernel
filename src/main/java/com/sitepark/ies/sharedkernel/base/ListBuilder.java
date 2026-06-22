@@ -3,11 +3,11 @@ package com.sitepark.ies.sharedkernel.base;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public final class ListBuilder<T> {
 
-  @NotNull private final List<T> list = new ArrayList<>();
+  @NonNull private final List<T> list = new ArrayList<>();
   private boolean changed;
 
   @SafeVarargs

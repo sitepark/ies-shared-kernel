@@ -8,15 +8,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.jparams.verifier.tostring.ToStringVerifier;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings({
-  "PI_DO_NOT_REUSE_PUBLIC_IDENTIFIERS_CLASS_NAMES",
-  "NP_NULL_PARAM_DEREF_NONVIRTUAL",
-  "NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS"
-})
 class LdapIdentityTest {
 
   private static final String USER_DN = "userdn";

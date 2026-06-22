@@ -1,10 +1,8 @@
 package com.sitepark.ies.sharedkernel.email;
 
 import java.util.Objects;
-import javax.annotation.concurrent.Immutable;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
-@Immutable
 public record EmailMessageTypeIdentifier(String category, String key) {
   public static EmailMessageTypeIdentifier of(String category, String key) {
     return new EmailMessageTypeIdentifier(category, key);
@@ -33,7 +31,7 @@ public record EmailMessageTypeIdentifier(String category, String key) {
    * @return the formatted identifier
    */
   @Override
-  public @NotNull String toString() {
+  public @NonNull String toString() {
     return category + ":" + key;
   }
 }

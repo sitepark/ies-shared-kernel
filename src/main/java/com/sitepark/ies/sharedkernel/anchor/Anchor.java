@@ -5,6 +5,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.regex.Pattern;
+import org.jspecify.annotations.Nullable;
 
 /**
  * An "anchor" in the IES system is an additional optional field that serves as an alternative
@@ -49,7 +50,7 @@ public final class Anchor implements Serializable {
     this.name = name;
   }
 
-  public static Anchor ofString(String name) {
+  public static @Nullable Anchor ofString(@Nullable String name) {
 
     if (name == null) {
       return null;
@@ -76,7 +77,7 @@ public final class Anchor implements Serializable {
       name.append(part);
     }
 
-    return ofString(name.toString());
+    return Objects.requireNonNull(ofString(name.toString()));
   }
 
   public String getName() {

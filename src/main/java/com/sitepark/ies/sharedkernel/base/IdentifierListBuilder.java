@@ -4,12 +4,12 @@ import com.sitepark.ies.sharedkernel.anchor.Anchor;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 @SuppressWarnings("PMD.TooManyMethods")
 public class IdentifierListBuilder {
 
-  @NotNull private final List<Identifier> identifiers = new ArrayList<>();
+  @NonNull private final List<Identifier> identifiers = new ArrayList<>();
   private boolean changed;
 
   public IdentifierListBuilder set(String... identifiers) {

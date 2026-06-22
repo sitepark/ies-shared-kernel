@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Comparator;
 import java.util.Locale;
 import java.util.Objects;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 @SuppressWarnings("PMD.AvoidFieldNameMatchingMethodName")
 public final class EntityRef implements Comparable<EntityRef> {
@@ -31,9 +31,6 @@ public final class EntityRef implements Comparable<EntityRef> {
   }
 
   public static String toTypeString(Class<?> type) {
-    if (type == null) {
-      return null;
-    }
     return type.getSimpleName().toLowerCase(Locale.ROOT);
   }
 
@@ -64,7 +61,7 @@ public final class EntityRef implements Comparable<EntityRef> {
   }
 
   @Override
-  public int compareTo(@NotNull EntityRef that) {
+  public int compareTo(@NonNull EntityRef that) {
     return Objects.compare(
         this, that, Comparator.comparing(EntityRef::type).thenComparing(EntityRef::id));
   }

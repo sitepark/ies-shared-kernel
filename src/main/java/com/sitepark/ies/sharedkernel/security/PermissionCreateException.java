@@ -2,6 +2,7 @@ package com.sitepark.ies.sharedkernel.security;
 
 import com.sitepark.ies.sharedkernel.domain.DomainException;
 import java.io.Serial;
+import org.jspecify.annotations.Nullable;
 
 public class PermissionCreateException extends DomainException {
 
@@ -16,7 +17,7 @@ public class PermissionCreateException extends DomainException {
   }
 
   public PermissionCreateException(
-      String permissionType, String permissionData, String message, Throwable cause) {
+      String permissionType, String permissionData, String message, @Nullable Throwable cause) {
     super(message, cause);
     this.permissionType = permissionType;
     this.permissionData = permissionData;

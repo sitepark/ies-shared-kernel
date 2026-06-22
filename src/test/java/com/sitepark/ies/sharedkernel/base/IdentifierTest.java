@@ -3,14 +3,9 @@ package com.sitepark.ies.sharedkernel.base;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.sitepark.ies.sharedkernel.anchor.Anchor;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings({
-  "PI_DO_NOT_REUSE_PUBLIC_IDENTIFIERS_CLASS_NAMES",
-  "NP_NULL_PARAM_DEREF_NONVIRTUAL"
-})
 class IdentifierTest {
 
   @Test

@@ -7,17 +7,18 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 @SuppressWarnings({"PMD.AvoidFieldNameMatchingMethodName", "PMD.TooManyMethods"})
 @JsonDeserialize(builder = User.Builder.class)
 public final class User {
 
-  @NotNull private final String id;
-  @NotNull private final String username;
-  private final String firstName;
-  @NotNull private final String lastName;
-  private final String email;
+  @NonNull private final String id;
+  @NonNull private final String username;
+  private final @Nullable String firstName;
+  @NonNull private final String lastName;
+  private final @Nullable String email;
   private final Identity identity;
   private final List<AuthMethod> authMethods;
   private final List<AuthFactor> authFactors;
@@ -56,7 +57,7 @@ public final class User {
   }
 
   @JsonProperty
-  public String firstName() {
+  public @Nullable String firstName() {
     return firstName;
   }
 
@@ -66,7 +67,7 @@ public final class User {
   }
 
   @JsonProperty
-  public String email() {
+  public @Nullable String email() {
     return email;
   }
 
@@ -163,14 +164,14 @@ public final class User {
   }
 
   @JsonPOJOBuilder(withPrefix = "")
-  @SuppressWarnings({"PMD.LawOfDemeter"})
+  @SuppressWarnings({"PMD.LawOfDemeter", "NullAway.Init"})
   public static final class Builder {
 
     private String id;
     private String username;
-    private String firstName;
+    private @Nullable String firstName;
     private String lastName;
-    private String email;
+    private @Nullable String email;
     private Identity identity = Identity.internal();
     private final List<AuthMethod> authMethods = new ArrayList<>();
     private final List<AuthFactor> authFactors = new ArrayList<>();
