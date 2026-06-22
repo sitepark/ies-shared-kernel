@@ -110,6 +110,6 @@ public final class Anchor implements Serializable {
 
   @Override
   public String toString() {
-    return this == EMPTY ? "EMPTY" : this.name;
+    return this.name.isEmpty() ? "EMPTY" : this.name;
   }
 }

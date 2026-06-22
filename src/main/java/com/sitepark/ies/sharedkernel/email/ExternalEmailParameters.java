@@ -16,6 +16,7 @@ public record ExternalEmailParameters(
     replyTo = replyTo == null ? List.of() : List.copyOf(replyTo);
   }
 
+  @Override
   public List<EmailAddress> replyTo() {
     return List.copyOf(replyTo);
   }
