@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 @SuppressWarnings({"PMD.AvoidFieldNameMatchingMethodName", "PMD.LawOfDemeter"})
 public final class UserAuthentication implements Authentication {
 
-  @NotNull private final User user;
+  @NonNull private final User user;
 
-  @NotNull private final List<Permission> permissions;
+  @NonNull private final List<Permission> permissions;
 
   private UserAuthentication(Builder builder) {
     Objects.requireNonNull(builder.user, "user must not be null");
@@ -56,6 +56,7 @@ public final class UserAuthentication implements Authentication {
     return new Builder();
   }
 
+  @SuppressWarnings("NullAway.Init")
   public static final class Builder {
 
     private User user;

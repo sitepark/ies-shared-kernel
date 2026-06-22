@@ -56,7 +56,7 @@ mvn site                      # Generate project site with reports
 ### Important Constraints
 - **Anchor Validation**: Must contain only letters, numbers, underscore, minus, dot - no spaces or special characters, cannot be only numbers
 - **Identifier**: Can be either a numeric string ID (max 19 chars, > 0) or an `Anchor`
-- **Java Version**: Requires Java 21
+- **Java Version**: Requires Java 25
 - **Serialization**: Key domain objects implement `Serializable` with explicit `serialVersionUID`
 
 ### Dependencies and Libraries

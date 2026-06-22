@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
-import javax.annotation.concurrent.Immutable;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Represents an email with all metadata and content.
@@ -41,15 +40,14 @@ import org.jetbrains.annotations.NotNull;
   "PMD.LawOfDemeter",
   "PMD.TooManyMethods"
 })
-@Immutable
 public final class Email {
 
-  @NotNull private final EmailAddress from;
-  @NotNull private final List<EmailAddress> replyTo;
-  @NotNull private final List<EmailAddress> to;
-  @NotNull private final List<EmailAddress> cc;
-  @NotNull private final List<EmailAddress> bcc;
-  @NotNull private final EmailMessage message;
+  @NonNull private final EmailAddress from;
+  @NonNull private final List<EmailAddress> replyTo;
+  @NonNull private final List<EmailAddress> to;
+  @NonNull private final List<EmailAddress> cc;
+  @NonNull private final List<EmailAddress> bcc;
+  @NonNull private final EmailMessage message;
 
   private Email(Builder builder) {
     this.from = builder.from;
@@ -126,6 +124,7 @@ public final class Email {
     return new Builder();
   }
 
+  @SuppressWarnings("NullAway.Init")
   public static final class Builder {
     private EmailAddress from;
     private final List<EmailAddress> replyTo = new ArrayList<>();

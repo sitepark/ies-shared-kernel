@@ -2,6 +2,7 @@ package com.sitepark.ies.sharedkernel.security;
 
 import com.sitepark.ies.sharedkernel.domain.DomainException;
 import java.io.Serial;
+import org.jspecify.annotations.Nullable;
 
 public class PermissionDeserializeException extends DomainException {
 
@@ -13,7 +14,7 @@ public class PermissionDeserializeException extends DomainException {
     this(data, message, null);
   }
 
-  public PermissionDeserializeException(String data, String message, Throwable cause) {
+  public PermissionDeserializeException(String data, String message, @Nullable Throwable cause) {
     super(message, cause);
     this.data = data;
   }

@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
-import javax.annotation.concurrent.Immutable;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Template-based email message using Mustache templates.
@@ -55,13 +55,12 @@ import org.jetbrains.annotations.NotNull;
  * </ol>
  */
 @SuppressWarnings({"PMD.AvoidFieldNameMatchingMethodName"})
-@Immutable
 public final class TemplateEmailMessage implements EmailMessage {
 
-  @NotNull private final EmailMessageTypeIdentifier messageType;
-  private final EmailMessageThemeIdentifier theme;
-  @NotNull private final Map<String, Object> data;
-  private final String lang;
+  @NonNull private final EmailMessageTypeIdentifier messageType;
+  private final @Nullable EmailMessageThemeIdentifier theme;
+  @NonNull private final Map<String, Object> data;
+  private final @Nullable String lang;
 
   @SuppressWarnings("PMD.LawOfDemeter")
   private TemplateEmailMessage(Builder builder) {
@@ -75,7 +74,7 @@ public final class TemplateEmailMessage implements EmailMessage {
     return this.messageType;
   }
 
-  public EmailMessageThemeIdentifier theme() {
+  public @Nullable EmailMessageThemeIdentifier theme() {
     return this.theme;
   }
 
@@ -83,7 +82,7 @@ public final class TemplateEmailMessage implements EmailMessage {
     return Map.copyOf(this.data);
   }
 
-  public String lang() {
+  public @Nullable String lang() {
     return this.lang;
   }
 
@@ -125,12 +124,12 @@ public final class TemplateEmailMessage implements EmailMessage {
     return new Builder();
   }
 
-  @SuppressWarnings("PMD.UseConcurrentHashMap")
+  @SuppressWarnings({"PMD.UseConcurrentHashMap", "NullAway.Init"})
   public static final class Builder {
     private EmailMessageTypeIdentifier messageType;
-    private EmailMessageThemeIdentifier theme;
+    private @Nullable EmailMessageThemeIdentifier theme;
     private final Map<String, Object> data = new HashMap<>();
-    private String lang;
+    private @Nullable String lang;
 
     private Builder() {}
 

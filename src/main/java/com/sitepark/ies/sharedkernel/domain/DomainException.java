@@ -1,6 +1,7 @@
 package com.sitepark.ies.sharedkernel.domain;
 
 import java.io.Serial;
+import org.jspecify.annotations.Nullable;
 
 public class DomainException extends RuntimeException {
 
@@ -14,7 +15,7 @@ public class DomainException extends RuntimeException {
     super(message);
   }
 
-  public DomainException(String message, Throwable cause) {
+  public DomainException(String message, @Nullable Throwable cause) {
     super(message, cause);
   }
 
@@ -23,7 +24,10 @@ public class DomainException extends RuntimeException {
   }
 
   protected DomainException(
-      String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+      String message,
+      @Nullable Throwable cause,
+      boolean enableSuppression,
+      boolean writableStackTrace) {
     super(message, cause, enableSuppression, writableStackTrace);
   }
 }

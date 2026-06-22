@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 @SuppressWarnings({"PMD.AvoidFieldNameMatchingMethodName"})
 public final class ServiceAuthentication implements Authentication {
 
-  @NotNull private final String name;
+  @NonNull private final String name;
 
-  @NotNull private final List<Permission> permissions;
+  @NonNull private final List<Permission> permissions;
 
   private ServiceAuthentication(Builder builder) {
     Objects.requireNonNull(builder.name, "name must not be null");
@@ -54,6 +54,7 @@ public final class ServiceAuthentication implements Authentication {
     return new Builder();
   }
 
+  @SuppressWarnings("NullAway.Init")
   public static final class Builder {
 
     private String name;
