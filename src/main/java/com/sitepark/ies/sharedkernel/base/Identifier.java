@@ -64,7 +64,7 @@ public final class Identifier implements Comparable<Identifier> {
 
   public static Identifier ofAnchor(Anchor anchor) {
     Objects.requireNonNull(anchor, "anchor is null");
-    if (anchor == Anchor.EMPTY) {
+    if (Anchor.EMPTY.equals(anchor)) {
       throw new IllegalArgumentException("anchor is empty");
     }
     return new Identifier(anchor);

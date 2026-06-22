@@ -123,7 +123,7 @@ import org.jspecify.annotations.Nullable;
  *     <th>Best For</th>
  *   </tr>
  *   <tr>
- *     <td>{@code Optional&lt;T&gt;}</td>
+ *     <td>{@code Optional<T>}</td>
  *     <td>Optional.empty()</td>
  *     <td>Optional.empty()</td>
  *     <td>Optional.of(value)</td>
@@ -144,7 +144,7 @@ import org.jspecify.annotations.Nullable;
  *     <td>Only annotation, no runtime info</td>
  *   </tr>
  *   <tr>
- *     <td><strong>{@code Updatable&lt;T&gt;}</strong></td>
+ *     <td><strong>{@code Updatable<T>}</strong></td>
  *     <td><strong>Updatable.unchanged()</strong></td>
  *     <td><strong>Updatable.of(null)</strong></td>
  *     <td><strong>Updatable.of(value)</strong></td>
