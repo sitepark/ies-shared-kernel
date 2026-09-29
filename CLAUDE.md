@@ -28,7 +28,6 @@ mvn verify                     # Run tests and integration checks
 ```bash
 mvn spotless:check             # Check code formatting (Google Java Format)
 mvn spotless:apply             # Apply code formatting
-mvn com.github.spotbugs:spotbugs-maven-plugin:check  # Run SpotBugs static analysis
 mvn pmd:check                  # Run PMD static analysis
 mvn jacoco:check               # Check code coverage requirements
 ```
@@ -76,7 +75,8 @@ mvn site                      # Generate project site with reports
 ### Code Style
 - Google Java Format style enforced via Spotless
 - PMD rules defined in `pmd-ruleset.xml`
-- SpotBugs static analysis with exclusions in `spotbug-exclude-filter.xml`
+- Error Prone and NullAway (JSpecify mode) run during compilation, `-Werror` turns every warning into an error
+- Code is `@NullMarked`; nullable API points are annotated with `org.jspecify.annotations.Nullable`
 - No code comments should be added unless specifically requested
 - Prefer immutable objects and defensive copying
 - Use builder patterns for complex object construction
