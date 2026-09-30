@@ -48,10 +48,10 @@
 	</scm>
 
 	<properties>
-		<junit.version>6.0.3</junit.version>
+		<junit.version>6.1.3</junit.version>
 		<errorprone.version>2.50.0</errorprone.version>
-		<nullaway.version>0.13.7</nullaway.version>
-		<pmd.version>7.22.0</pmd.version>
+		<nullaway.version>0.14.2</nullaway.version>
+		<pmd.version>7.28.0</pmd.version>
 		<gpg.skip>true</gpg.skip>
 		<maven.compiler.release>25</maven.compiler.release>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -97,7 +97,7 @@
 		<dependency>
 			<groupId>org.jspecify</groupId>
 			<artifactId>jspecify</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1</version>
 			<optional>true</optional>
 		</dependency>
 
@@ -132,7 +132,7 @@
 		<dependency>
 			<groupId>nl.jqno.equalsverifier</groupId>
 			<artifactId>equalsverifier</artifactId>
-			<version>4.4.1</version>
+			<version>4.5.2</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -149,12 +149,12 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.15.0</version>
+				<version>3.16.0</version>
 				<configuration>
 					<compilerArgs>
 						<arg>-XDcompilePolicy=simple</arg>
 						<arg>--should-stop=ifError=FLOW</arg>
-						<arg>-Xplugin:ErrorProne -Xep:NullAway:ERROR -XepOpt:NullAway:JSpecifyMode=true -XepOpt:NullAway:AnnotatedPackages=com.sitepark.ies</arg>
+						<arg>-Xplugin:ErrorProne -Xep:NullAway:ERROR -XepOpt:NullAway:JSpecifyMode=true -XepOpt:NullAway:AnnotatedPackages=com.sitepark</arg>
 						<!-- Treat every Error Prone / javac warning as a build error. -->
 						<arg>-Werror</arg>
 					</compilerArgs>
@@ -172,8 +172,7 @@
 					</annotationProcessorPaths>
 				</configuration>
 				<executions>
-					<!-- Test code: run Error Prone but disable NullAway. Tests deliberately pass
-					     null to verify rejection, which would otherwise trip NullAway. -->
+					<!-- Test code: Error Prone on, NullAway off (tests pass null intentionally) -->
 					<execution>
 						<id>default-testCompile</id>
 						<configuration>
@@ -188,11 +187,13 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.5.0</version>
+				<version>3.5.1</version>
 			</plugin>
 			<plugin>
+				<!-- Provides the property ${org.mockito:mockito-core:jar} for the Mockito agent -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.11.0</version>
 				<executions>
 					<execution>
 						<goals>
@@ -204,8 +205,9 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.5.5</version>
+				<version>3.6.0</version>
 				<configuration>
+					<!-- Load Mockito as agent, the JDK blocks its dynamic self-attach in the future -->
 					<argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar}</argLine>
 					<consoleOutputReporter>
 						<disable>true</disable>
@@ -277,7 +279,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>3.6.2</version>
+				<version>3.6.3</version>
 				<dependencies>
 					<dependency>
 						<groupId>io.github.thefolle</groupId>
@@ -325,7 +327,7 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.14</version>
+				<version>0.8.15</version>
 				<executions>
 					<execution>
 						<goals>
@@ -340,12 +342,17 @@
 						<configuration>
 							<rules>
 								<rule>
-									<element>PACKAGE</element>
+									<element>BUNDLE</element>
 									<limits>
 										<limit>
 											<counter>LINE</counter>
-											<minimum>0.0</minimum>
 											<value>COVEREDRATIO</value>
+											<minimum>0.85</minimum>
+										</limit>
+										<limit>
+											<counter>BRANCH</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>0.80</minimum>
 										</limit>
 									</limits>
 								</rule>
@@ -366,22 +373,19 @@
 				<artifactId>spotless-maven-plugin</artifactId>
 				<version>3.10.3</version>
 				<configuration>
-					<!-- define a language-specific format -->
 					<java>
-						<removeUnusedImports>
-							<engine>google-java-format</engine>
-						</removeUnusedImports>
-
 						<!-- apply a specific flavor of google-java-format and reflow long strings -->
 						<googleJavaFormat>
-							<version>1.31.0</version>
+							<version>1.36.1</version>
 							<style>GOOGLE</style>
 							<reflowLongStrings>true</reflowLongStrings>
 							<formatJavadoc>false</formatJavadoc>
 						</googleJavaFormat>
+						<removeUnusedImports>
+							<engine>google-java-format</engine>
+						</removeUnusedImports>
 					</java>
 					<pom>
-						<!-- These are the defaults, you can override if you want -->
 						<includes>
 							<include>pom.xml</include>
 						</includes>
@@ -392,9 +396,20 @@
 					</pom>
 				</configuration>
 				<executions>
+					<!-- Formats locally; skipped in the ci profile, so that the check below can fail -->
 					<execution>
-						<?m2e ignore?>
+						<id>spotless-apply</id>
+						<goals>
+							<goal>apply</goal>
+						</goals>
+						<phase>process-sources</phase>
+						<configuration>
+							<skip>${spotless.apply.skip}</skip>
+						</configuration>
+					</execution>
+					<execution>
 						<id>spotless-check</id>
+						<?m2e ignore?>
 						<goals>
 							<goal>check</goal>
 						</goals>
@@ -407,14 +422,14 @@
 				<artifactId>maven-pmd-plugin</artifactId>
 				<version>3.28.0</version>
 				<configuration>
+					<failOnViolation>true</failOnViolation>
+					<failurePriority>5</failurePriority>
+					<includeTests>true</includeTests>
+					<linkXRef>false</linkXRef>
+					<printFailingErrors>true</printFailingErrors>
 					<rulesets>
 						<ruleset>pmd-ruleset.xml</ruleset>
 					</rulesets>
-					<includeTests>true</includeTests>
-					<failOnViolation>true</failOnViolation>
-					<failurePriority>1</failurePriority>
-					<printFailingErrors>true</printFailingErrors>
-					<linkXRef>false</linkXRef>
 				</configuration>
 				<dependencies>
 					<dependency>
@@ -460,7 +475,7 @@
 					<plugin>
 						<groupId>org.sonatype.central</groupId>
 						<artifactId>central-publishing-maven-plugin</artifactId>
-						<version>0.10.0</version>
+						<version>0.11.0</version>
 						<extensions>true</extensions>
 						<configuration>
 							<autoPublish>true</autoPublish>
