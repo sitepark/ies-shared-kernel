@@ -1,9 +1,11 @@
 package com.sitepark.ies.sharedkernel.security;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
 import java.time.Instant;
@@ -314,6 +316,31 @@ class CodeVerificationChallengeTest {
         challenge,
         incremented,
         "incremented challenge should not be equal to original due to different attempts");
+  }
+
+  @Test
+  void testSendCodeDefaultsToTrue() {
+    CodeVerificationChallenge challenge =
+        new CodeVerificationChallenge(
+            CHALLENGE_ID, CODE, PAYLOAD, CREATED_AT, EXPIRES_AT, ATTEMPTS);
+    assertTrue(challenge.sendCode(), "sendCode should default to true");
+  }
+
+  @Test
+  void testSendCodeFalse() {
+    CodeVerificationChallenge challenge =
+        new CodeVerificationChallenge(
+            CHALLENGE_ID, CODE, PAYLOAD, CREATED_AT, EXPIRES_AT, ATTEMPTS, false);
+    assertFalse(challenge.sendCode(), "sendCode should match input");
+  }
+
+  @Test
+  void testIncrementAttemptsPreservesSendCode() {
+    CodeVerificationChallenge challenge =
+        new CodeVerificationChallenge(
+            CHALLENGE_ID, CODE, PAYLOAD, CREATED_AT, EXPIRES_AT, ATTEMPTS, false);
+    assertFalse(
+        challenge.incrementAttempts().sendCode(), "incrementAttempts should preserve sendCode");
   }
 
   @Test
