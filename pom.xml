@@ -6,7 +6,7 @@
 
 	<groupId>com.sitepark.ies</groupId>
 	<artifactId>ies-shared-kernel</artifactId>
-	<version>1.1.0-SNAPSHOT</version>
+	<version>2.0.0-SNAPSHOT</version>
 
 	<name>IES Shared Kernel</name>
 	<description>Shared kernel containing generic domain models, technical base objects, and
@@ -85,8 +85,15 @@
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.21</version>
+		</dependency>
+
+		<dependency>
+			<groupId>tools.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.23.0</version>
+			<version>3.1.5</version>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>

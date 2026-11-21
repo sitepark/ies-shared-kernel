@@ -2,10 +2,10 @@ package com.sitepark.ies.sharedkernel.domain;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import tools.jackson.databind.MapperFeature;
+import tools.jackson.databind.json.JsonMapper;
 
 class EntityRefTest {
   private EntityRef entityRef;
@@ -16,8 +16,9 @@ class EntityRefTest {
   }
 
   @Test
-  void testSerialize() throws JsonProcessingException {
-    ObjectMapper mapper = new ObjectMapper();
+  void testSerialize() {
+    JsonMapper mapper =
+        JsonMapper.builder().disable(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY).build();
     String json = mapper.writeValueAsString(this.entityRef);
 
     String expected =
@@ -29,8 +30,9 @@ class EntityRefTest {
   }
 
   @Test
-  void testDeserialize() throws JsonProcessingException {
-    ObjectMapper mapper = new ObjectMapper();
+  void testDeserialize() {
+    JsonMapper mapper =
+        JsonMapper.builder().disable(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY).build();
     String json =
         """
         {"type":"user","id":"1234"}\
