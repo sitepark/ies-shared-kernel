@@ -2,8 +2,6 @@ package com.sitepark.ies.sharedkernel.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -11,7 +9,6 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 @SuppressWarnings({"PMD.AvoidFieldNameMatchingMethodName", "PMD.TooManyMethods"})
-@JsonDeserialize(builder = User.Builder.class)
 public final class User {
 
   @NonNull private final String id;
@@ -163,7 +160,6 @@ public final class User {
     return new Builder(this);
   }
 
-  @JsonPOJOBuilder(withPrefix = "")
   @SuppressWarnings({"PMD.LawOfDemeter", "NullAway.Init"})
   public static final class Builder {
 

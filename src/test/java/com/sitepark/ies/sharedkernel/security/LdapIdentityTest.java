@@ -4,12 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.jparams.verifier.tostring.ToStringVerifier;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.Test;
+import tools.jackson.databind.MapperFeature;
+import tools.jackson.databind.json.JsonMapper;
 
 class LdapIdentityTest {
 
@@ -26,13 +25,13 @@ class LdapIdentityTest {
   }
 
   @Test
-  void testSetServer() throws JsonProcessingException {
+  void testSetServer() {
     LdapIdentity ldapIdentity = new LdapIdentity("2", USER_DN);
     assertEquals("2", ldapIdentity.serverId(), "unexpected server");
   }
 
   @Test
-  void testSetInvalidServer() throws JsonProcessingException {
+  void testSetInvalidServer() {
     assertThrows(
         NullPointerException.class,
         () -> {
@@ -41,7 +40,7 @@ class LdapIdentityTest {
   }
 
   @Test
-  void testSetNullDn() throws JsonProcessingException {
+  void testSetNullDn() {
     assertThrows(
         NullPointerException.class,
         () -> {
@@ -50,7 +49,7 @@ class LdapIdentityTest {
   }
 
   @Test
-  void testSetBlankDn() throws JsonProcessingException {
+  void testSetBlankDn() {
     assertThrows(
         IllegalArgumentException.class,
         () -> {
@@ -59,16 +58,20 @@ class LdapIdentityTest {
   }
 
   @Test
-  void testSetDn() throws JsonProcessingException {
+  void testSetDn() {
     LdapIdentity ldapIdentity = new LdapIdentity("2", USER_DN);
     assertEquals(USER_DN, ldapIdentity.dn(), "unexpected server");
   }
 
   @Test
-  void testSerialize() throws JsonProcessingException {
+  void testSerialize() {
 
-    ObjectMapper mapper = new ObjectMapper();
-    mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+    JsonMapper mapper =
+        JsonMapper.builder()
+            .disable(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY)
+            .changeDefaultPropertyInclusion(
+                inclusion -> inclusion.withValueInclusion(JsonInclude.Include.NON_EMPTY))
+            .build();
 
     LdapIdentity ldapIdentity = new LdapIdentity("2", USER_DN);
 
@@ -80,11 +83,10 @@ class LdapIdentityTest {
   }
 
   @Test
-  void testDeserialize() throws JsonProcessingException {
+  void testDeserialize() {
 
-    ObjectMapper mapper = new ObjectMapper();
-    SimpleModule module = new SimpleModule();
-    mapper.registerModule(module);
+    JsonMapper mapper =
+        JsonMapper.builder().disable(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY).build();
 
     String json = "{\"serverId\":\"2\",\"dn\":\"userdn\",\"type\":\"ldap\"}";
 

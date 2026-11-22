@@ -1,5 +1,6 @@
 package com.sitepark.ies.sharedkernel.anchor;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.io.Serial;
 import java.io.Serializable;
@@ -50,6 +51,7 @@ public final class Anchor implements Serializable {
     this.name = name;
   }
 
+  @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
   public static @Nullable Anchor ofString(@Nullable String name) {
 
     if (name == null) {

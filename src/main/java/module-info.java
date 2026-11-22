@@ -13,7 +13,6 @@ module com.sitepark.ies.sharedkernel {
   exports com.sitepark.ies.sharedkernel.email;
 
   requires org.apache.logging.log4j;
-  requires transitive com.fasterxml.jackson.databind;
   requires com.fasterxml.jackson.annotation;
   requires static org.jspecify;
 
